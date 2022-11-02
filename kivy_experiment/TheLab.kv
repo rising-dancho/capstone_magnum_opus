@@ -1,6 +1,92 @@
-MainWidget:
+ScrollViewExample:
+
+<ScrollViewExample@ScrollView>:
+    StackLayoutExample:
+        size_hint: 1,None
+        height: self.minimum_height
+
+<StackLayoutExample>:
+    # left-right top-bottom
+    # orientation: "lr-bt"
+    # NOTE: clockwise: -> left, top, right, bottom
+    # padding: ('20dp', '20dp', '20dp', '20dp')
+    # spacing: "20dp", "20dp"
+
+<GridLayouttExample@GridLayout>:
+    # rows
+    # columns
+    cols: 3
+    rows: 2
+
+    Button:
+        text:'A'
+        size_hint: None,.1
+        width: "60dp"
+    BoxLayoutExample:
+    Button:
+        text:'C'
+    Button:
+        text:'D'
+        size_hint: None,.1
+        width: "60dp"
+    Button:
+        text:'E'
+    Button:
+        text:'F'
+
+<AnchorLayoutExample>:
+    # right, left, center
+    anchor_x: 'left'
+    # bottom, top, center
+    anchor_y: 'top'
+    BoxLayout:
+        size_hint: .2,.2
+        Button:
+            text:'A'      
+        Button:
+            text:'B'
+ 
 
 
+
+<BoxLayoutExample@BoxLayout>:
+    orientation: 'horizontal'
+    Button:
+        text:'A'
+        #size: '40dp','40dp'
+        size_hint: .5, .5 # width, height
+        # x, center_x, right -> horizontal
+        # y, center_y, top -> vertical
+        pos_hint: {'y': .5}
+        # height: '100dp'
+    
+    BoxLayout:
+        orientation:'vertical'
+        spacing: '10dp'
+
+        Button:
+            text:'B1'
+        Button:
+            text:'B2'
+        Button:
+            text:'B3'
+        Button:
+            text:'B4' 
+    Label:
+        text:'C'
+
+<MainWidget>:
+    Button:
+        text:'Hello'
+        size: '40dp','40dp'
+        pos: '100dp','200dp'
+        color: 0 , 1 , 0 , 1
+
+    Label:
+        text:'Hello2'
+        size: '40dp','40dp'
+        pos: '200dp','300dp'
+        color: 1 , 0 , 0 , 1
 
 
 
