@@ -12,7 +12,7 @@ WidgetsExample:
         text:'Count'
         on_press: root.on_button_click()
     Label:
-        text: root.my_string
+        text: root.my_text
         font_name: 'fonts/Lcd.ttf'
         font_size: "80dp"
         color: .8, 1, .5
@@ -21,11 +21,14 @@ WidgetsExample:
         size_hint: None, 1 # width, height
         width: "100dp"
     Slider:
+        disabled: not root.switch_enabled
         min:0
         max:100
-        value:10
+        value:20
         on_value: root.on_slider_value(self)
         orientation: "vertical"
+    Label:
+        text: root.silder_text_value
 
 
 <PageLayoutExample@PageLayout>:
