@@ -22,13 +22,19 @@ class WidgetsExample(GridLayout):
             self.my_string = str(self.count)
         
     def on_toggle_button_state(self, widget):
-        print("toggle state: " + widget.state)
+        print("toggle state: ", widget.state)
         if widget.state == "normal":
             widget.text = "OFF"
             self.count_enabled = False
         else:
             widget.text = "ON"
             self.count_enabled = True
+    
+    def on_switch_active(self, widget):
+        print("active state: ", str(widget.active))
+    
+    def on_slider_value(self, widget):
+        print("slider value: ",str(int(widget.value)))
 
         
         
