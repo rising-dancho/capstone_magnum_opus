@@ -1,4 +1,27 @@
-ScrollViewExample:
+WidgetsExample:
+
+<WidgetsExample>:
+    cols: 3
+    ToggleButton:
+        text:'OFF'
+        on_state: root.on_toggle_button_state(self)
+        size_hint: None, 1 # width, height
+        width: "100dp"
+    Button:
+        disabled: not root.count_enabled
+        text:'Count'
+        on_press: root.on_button_click()
+    Label:
+        text: root.my_string
+        font_name: 'fonts/Lcd.ttf'
+        font_size: "80dp"
+        color: .8, 1, .5
+
+<PageLayoutExample@PageLayout>:
+    MainWidget:
+    BoxLayoutExample:
+    AnchorLayoutExample:
+    GridLayouttExample:
 
 <ScrollViewExample@ScrollView>:
     StackLayoutExample:
