@@ -1,160 +1,29 @@
-WidgetsExample:
+#:import layout_examples layout_examples
+#:import widget_examples widget_examples
+# #:import CardTransition kivy.uix.screenmanager.CardTransition
+# https://kivy.org/doc/stable/api-kivy.uix.screenmanager.html?highlight=screenmanager#module-kivy.uix.screenmanager
 
-<WidgetsExample>:
-    cols: 3
-    ToggleButton:
-        text:'OFF'
-        on_state: root.on_toggle_button_state(self)
-        size_hint: None, 1 # width, height
-        width: "100dp"
-    Button:
-        disabled: not root.count_enabled
-        text:'Count'
-        on_press: root.on_button_click()
-    Label:
-        text: root.my_text
-        font_name: 'fonts/Lcd.ttf'
-        font_size: "80dp"
-        color: .8, 1, .5
-    Switch:
-        id: my_switch
-        # on_active: root.on_switch_active(self)
-        size_hint: None, 1 # width, height
-        width: "100dp"
-        active: True
-    Slider:
-        id: my_slider
-        disabled: not my_switch.active
-        min:0
-        max:100
-        value:20
-        # on_value: root.on_slider_value(self)
-        orientation: "vertical"
-    
-    BoxLayout:
-        orientation:'vertical'
-        Label:
-            text: str(int(my_slider.value))
-        ProgressBar:
-            max:100
-            value: my_slider.value
+MyScreenMananger:
+    #transition: CardTransition()
 
-    TextInput:
-        id: text_input
-        size_hint: None, 1 # width, height
-        width: "100dp"
-        text:'text'
-        multiline: False
-        on_text_validate: root.on_text_validate(self)
-    Label:
-        text: root.text_input_str
-
+<MyScreenMananger@ScreenManager>:
+    Screen:
+        name: "screen1"
+        Button:
+            text:'Button1'
+            on_press: root.current = "screen2"
+            on_press: root.transition.direction = "right" ; root.current = "screen3"
+    Screen:
+        name: "screen2"
+        Button:
+            text:'Button2'
+            on_press: root.transition.direction = "left" ; root.current = root.previous()
+    Screen:
+        name: "screen3"
+        Button:
+            text:'Button3'
+            on_press: root.transition.direction = "left" ; root.current = root.previous()
             
-      
-       
-    
-
-
-<PageLayoutExample@PageLayout>:
-    MainWidget:
-    BoxLayoutExample:
-    AnchorLayoutExample:
-    GridLayouttExample:
-
-<ScrollViewExample@ScrollView>:
-    StackLayoutExample:
-        size_hint: 1,None
-        height: self.minimum_height
-
-<StackLayoutExample>:
-    # left-right top-bottom
-    # orientation: "lr-bt"
-    # NOTE: clockwise: -> left, top, right, bottom
-    # padding: ('20dp', '20dp', '20dp', '20dp')
-    # spacing: "20dp", "20dp"
-
-<GridLayouttExample@GridLayout>:
-    # rows
-    # columns
-    cols: 3
-    rows: 2
-
-    Button:
-        text:'A'
-        size_hint: None,.1
-        width: "60dp"
-    BoxLayoutExample:
-    Button:
-        text:'C'
-    Button:
-        text:'D'
-        size_hint: None,.1
-        width: "60dp"
-    Button:
-        text:'E'
-    Button:
-        text:'F'
-
-<AnchorLayoutExample>:
-    # right, left, center
-    anchor_x: 'left'
-    # bottom, top, center
-    anchor_y: 'top'
-    BoxLayout:
-        size_hint: .2,.2
-        Button:
-            text:'A'      
-        Button:
-            text:'B'
- 
-
-
-
-<BoxLayoutExample@BoxLayout>:
-    orientation: 'horizontal'
-    Button:
-        text:'A'
-        #size: '40dp','40dp'
-        size_hint: .5, .5 # width, height
-        # x, center_x, right -> horizontal
-        # y, center_y, top -> vertical
-        pos_hint: {'y': .5}
-        # height: '100dp'
-    
-    BoxLayout:
-        orientation:'vertical'
-        spacing: '10dp'
-
-        Button:
-            text:'B1'
-        Button:
-            text:'B2'
-        Button:
-            text:'B3'
-        Button:
-            text:'B4' 
-    Label:
-        text:'C'
-
-<MainWidget>:
-    Button:
-        text:'Hello'
-        size: '40dp','40dp'
-        pos: '100dp','200dp'
-        color: 0 , 1 , 0 , 1
-
-    Label:
-        text:'Hello2'
-        size: '40dp','40dp'
-        pos: '200dp','300dp'
-        color: 1 , 0 , 0 , 1
-
-
-
-
-
-
-
 
 
 
