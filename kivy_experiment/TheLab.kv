@@ -38,6 +38,17 @@ WidgetsExample:
         ProgressBar:
             max:100
             value: my_slider.value
+
+    TextInput:
+        id: text_input
+        size_hint: None, 1 # width, height
+        width: "100dp"
+        text:'text'
+        multiline: False
+        on_text_validate: root.on_text_validate(self)
+    Label:
+        text: root.text_input_str
+
             
       
        
