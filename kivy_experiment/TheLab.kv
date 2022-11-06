@@ -1,46 +1,34 @@
 #:import layout_examples layout_examples
 #:import widget_examples widget_examples
 #:import navigation_screen_manager navigation_screen_manager
-# #:import CardTransition kivy.uix.screenmanager.CardTransition
-# https://kivy.org/doc/stable/api-kivy.uix.screenmanager.html?highlight=screenmanager#module-kivy.uix.screenmanager
+#:import boxlayout_with_actionbar boxlayout_with_actionbar
 
-MyScreenMananger:
-    #transition: CardTransition()
 
-<MyScreenMananger@NavigationScreenManager>:
+<MyScreenManager>:
     Screen:
         name: "screen1"
         BoxLayout:
             Button:
                 text:'go to screen images'
-                on_press: root.push("ImagesExample")
+                on_press: app.manager.push("ImagesExample")
             Button:
                 text:'go to screen 3'
-                on_press: root.push("screen3")
+                on_press: app.manager.push("screen3")
     Screen:
         name: "ImagesExample"
-        BoxLayout:
-            orientation: 'vertical'
-            ActionBar:
-                ActionView:
-                    ActionPrevious:
-                        title: "back"
-                        on_release: root.pop()
-                        app_icon: "images/lab_logo.png"
-                        app_icon_height: "28dp"
-                        app_icon_width: "28dp"
+        BoxLayoutWithActionBar:
+            title: "Images"
             ImagesExample:
-        
     Screen:
         name: "screen2"
         Button:
             text:'Button2'
-            on_press:root.pop()
+            on_press:app.manager.pop()
     Screen:
         name: "screen3"
         Button:
             text:'Button3'
-            on_press: root.pop()
+            on_press: app.manager.pop()
             
 
 

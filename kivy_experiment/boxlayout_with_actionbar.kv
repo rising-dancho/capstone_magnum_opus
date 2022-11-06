@@ -1,0 +1,10 @@
+<BoxLayoutWithActionBar>:
+    orientation: 'vertical'
+    ActionBar:
+        ActionView:
+            ActionPrevious:
+                title: root.title
+                on_release: app.manager.pop() # taking the pop method inherited by from the parent: NavigationScreenManager
+                app_icon: "images/lab_logo.png"
+                app_icon_height: "28dp"
+                app_icon_width: "28dp"
