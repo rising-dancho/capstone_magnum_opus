@@ -1,3 +1,28 @@
+<LayoutExamplesTabs@TabbedPanel>:
+    do_default_tab: False
+    TabbedPanelItem:
+        text:"Widget"
+        MainWidget:
+    TabbedPanelItem:
+        text:"Box"
+        BoxLayoutExample:
+    TabbedPanelItem:
+        text:"Achor"
+        AnchorLayoutExample:
+    TabbedPanelItem:
+        text:"Grid"
+        GridLayouttExample:
+    TabbedPanelItem:
+        text:"Stack"
+        StackLayoutExample:
+    TabbedPanelItem:
+        text:"Scroll"
+        ScrollViewExample:
+    TabbedPanelItem:
+        text:"Page"
+        PageLayoutExample:
+
+
 <PageLayoutExample@PageLayout>:
     MainWidget:
     BoxLayoutExample:
@@ -10,11 +35,12 @@
         height: self.minimum_height
 
 <StackLayoutExample>:
-    # left-right top-bottom
+    # # # left-right top-bottom
     # orientation: "lr-bt"
-    # NOTE: clockwise: -> left, top, right, bottom
+    # # # NOTE: clockwise: -> left, top, right, bottom
     # padding: ('20dp', '20dp', '20dp', '20dp')
     # spacing: "20dp", "20dp"
+ 
 
 <GridLayouttExample@GridLayout>:
     # rows
@@ -40,7 +66,7 @@
 
 <AnchorLayoutExample>:
     # right, left, center
-    anchor_x: 'left'
+    anchor_x: 'center'
     # bottom, top, center
     anchor_y: 'top'
     BoxLayout:

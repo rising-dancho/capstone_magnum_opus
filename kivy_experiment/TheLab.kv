@@ -7,7 +7,7 @@
     orientation: "vertical"
     Button:
         text:'Layouts'
-        on_press: app.manager.push("PageLayoutExample")
+        on_press: app.manager.push("LayoutExamplesTabs")
     Button:
         text:'Widgets'
         on_press: app.manager.push("WidgetsExample")
@@ -21,10 +21,10 @@
         name: "MainMenu"
         MainMenu:
     Screen:
-        name: "PageLayoutExample"
+        name: "LayoutExamplesTabs"
         BoxLayoutWithActionBar:
             title: "Layouts"
-            PageLayoutExample:
+            LayoutExamplesTabs:
     Screen:
         name: "ImagesExample"
         BoxLayoutWithActionBar:
