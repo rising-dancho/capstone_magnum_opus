@@ -3,32 +3,40 @@
 #:import navigation_screen_manager navigation_screen_manager
 #:import boxlayout_with_actionbar boxlayout_with_actionbar
 
+<MainMenu@BoxLayout>:
+    orientation: "vertical"
+    Button:
+        text:'Layouts'
+        on_press: app.manager.push("PageLayoutExample")
+    Button:
+        text:'Widgets'
+        on_press: app.manager.push("WidgetsExample")
+    Button:
+        text:'Images'
+        on_press: app.manager.push("ImagesExample")
+
 
 <MyScreenManager>:
     Screen:
-        name: "screen1"
-        BoxLayout:
-            Button:
-                text:'go to screen images'
-                on_press: app.manager.push("ImagesExample")
-            Button:
-                text:'go to screen 3'
-                on_press: app.manager.push("screen3")
+        name: "MainMenu"
+        MainMenu:
+    Screen:
+        name: "PageLayoutExample"
+        BoxLayoutWithActionBar:
+            title: "Layouts"
+            PageLayoutExample:
     Screen:
         name: "ImagesExample"
         BoxLayoutWithActionBar:
             title: "Images"
             ImagesExample:
     Screen:
-        name: "screen2"
-        Button:
-            text:'Button2'
-            on_press:app.manager.pop()
-    Screen:
-        name: "screen3"
-        Button:
-            text:'Button3'
-            on_press: app.manager.pop()
+        name: "WidgetsExample"
+        BoxLayoutWithActionBar:
+            title: "Widgets"
+            WidgetsExample:
+    
+    
             
 
 
