@@ -3,5 +3,6 @@ object counting and detection for mobile and desktop [ work in progress ]
 
 DEVELOPMENT: 
 
-![image](https://user-images.githubusercontent.com/43742265/200467797-437b211c-e934-4b74-a7b1-75b725409759.png)
+![image](https://user-images.githubusercontent.com/43742265/200471517-94cfa33b-2f83-4896-a05e-8a00118ca0bc.png)
+
 
