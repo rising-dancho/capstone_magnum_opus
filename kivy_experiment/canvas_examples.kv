@@ -43,4 +43,40 @@
         text:'A'
         on_press: root.on_button_a_click()
 
-<CanvasExample5>:
+<CanvasExample6>:
+    BoxLayout:
+        size: root.size        # orientation:'vertical'
+        Widget:
+            canvas:
+                Color: 
+                    rgb: 0,1,0
+                Rectangle:
+                    size: self.size
+        RelativeLayout:
+            canvas:
+                Color: 
+                    rgb: 0,0,1
+                Rectangle:
+                    size: self.size
+
+<CanvasExample7>:
+    RelativeLayout:
+        canvas:
+            Color: 
+                rgb: 0,0,1
+            Rectangle:
+                size: self.size
+    RelativeLayout:
+        canvas:
+            Color: 
+                rgb: 1,1,1
+            Rectangle:
+                size: self.size
+    RelativeLayout:
+        canvas:
+            Color: 
+                rgb: 1,0,0
+            Rectangle:
+                size: self.size
+
+

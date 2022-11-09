@@ -1,5 +1,6 @@
 from kivy.graphics.vertex_instructions import Line, Rectangle, Ellipse
 from kivy.graphics.context_instructions import Color
+from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import Clock
 from kivy.metrics import dp
 from kivy.lang.builder import Builder
@@ -88,3 +89,10 @@ class CanvasExample5(Widget):
             self.velocity_x = -self.velocity_x
 
         self.ball.pos = (x, y) # step +4 amount per 60 fps
+
+    
+class CanvasExample6(Widget):
+    ...
+
+class CanvasExample7(BoxLayout):
+    ...
