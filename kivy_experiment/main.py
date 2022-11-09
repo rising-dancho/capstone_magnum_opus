@@ -14,7 +14,7 @@ class TheLabApp(App):
      
     def build(self):
         self.manager = MyScreenManager()
-        #return self.manager
-        return CanvasExample7()
+        return self.manager
+        # return CanvasExample7()
 
 TheLabApp().run()
