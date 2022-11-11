@@ -1,3 +1,5 @@
+#:import utils kivy.utils
+
 MainWidget:
 
 <MainWidget>:
@@ -12,13 +14,35 @@ MainWidget:
             height: self.minimum_height
             orientation: 'vertical'
 
+<LeftAlignLabel@Label>:
+    text_size: self.size
+    halign: "left"
+    valign: "center"
+    canvas.before:
+        Color: 
+            rgb:  utils.get_random_color()
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<FitLabel@Label>
+    size_hint: None, None
+    size: self.texture_size
 
 <PizzaWidget>:
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            spacing: '10dp'
+            FitLabel:
+                text: root.name
+            FitLabel:
+                text: "VEGETARIAN" if root.vegetarian == True else ""
+        LeftAlignLabel:
+            text: root.ingredients
     Label:
-        text: root.name
-    Label:
-        text: root.ingredients
-    Label:
-        text: str(root.price)
-    Label:
-        text: str(root.vegetarian)
+        text: "$ " + str(root.price)
+        text_size: self.size
+        halign: "right"
+        valign: "center"
+    
