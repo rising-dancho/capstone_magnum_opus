@@ -1,5 +1,8 @@
 from kivy.app import App
+from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.behaviors import CoverBehavior
 from kivy.properties import ObjectProperty, StringProperty, NumericProperty, BooleanProperty
 from models import Pizza
 
@@ -10,7 +13,7 @@ class PizzaWidget(BoxLayout):
     vegetarian = BooleanProperty()
 
 
-class MainWidget(BoxLayout):
+class MainWidget(FloatLayout):
     from_main_recycle_view = ObjectProperty(None)
 
     def __init__(self, **kwargs):
@@ -28,8 +31,12 @@ class MainWidget(BoxLayout):
         #     {"name": "Chorizo"}
         # ]
 
+# with open("pizzascr.kv", encoding='utf8') as f:
+#     Builder.load_string(f.read())
 
 class PizzaApp(App):
+    # def build(self):
+    #     return MainWidget()
     ...
 
 PizzaApp().run()
