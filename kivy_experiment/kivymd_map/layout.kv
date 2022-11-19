@@ -1,0 +1,13 @@
+#: import MapView kivy_garden.mapview.MapView
+
+<MapViewExample>:
+    MapView:
+        id: map
+        lat: 14.6447036
+        long: 121.2665123
+        zoom: 10
+
+    MDRaisedButton:
+        text: "Return Home"
+        pos_hint:{"top": 1}
+        on_release: root.return_home()
