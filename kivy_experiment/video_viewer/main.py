@@ -2,6 +2,7 @@ from kivymd.app import MDApp
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.button import MDRaisedButton
 from kivy.uix.image import Image
+from kivymd.uix.label import MDLabel
 from kivy.graphics.texture import Texture
 from kivy.clock import Clock
 import cv2
@@ -13,7 +14,9 @@ class MainApp(MDApp):
     def build(self):
         layout = MDBoxLayout(orientation="vertical")
         self.image = Image()
+        self.label = MDLabel()
         layout.add_widget(self.image)
+        layout.add_widget(self.label)
         self.save_img_button = MDRaisedButton(
             text="Click Here",
             pos_hint={'center_x': .5, 'center_y': .5},
@@ -44,6 +47,7 @@ class MainApp(MDApp):
 
         text_data = pytesseract.image_to_string(img_thresh, lang="eng", config="--psm 6")
         print(text_data)
+        self.label.text = text_data
         cv2.imshow("cv2 final image", img_thresh)
         cv2.imwrite(image_name, self.image_frame)
 
