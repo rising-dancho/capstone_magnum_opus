@@ -17,6 +17,7 @@ class MainApp(MDApp):
         self.label = MDLabel()
         layout.add_widget(self.image)
         layout.add_widget(self.label)
+        self.face_facade = cv2.CascadeClassifier("haarcascade_smile.xml")
         self.save_img_button = MDRaisedButton(
             text="Click Here",
             pos_hint={'center_x': .5, 'center_y': .5},
