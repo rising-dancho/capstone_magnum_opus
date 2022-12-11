@@ -16,7 +16,7 @@ class MainApp(MDApp):
         layout.add_widget(self.image)
         layout.add_widget(self.label)
         self.save_img_button = MDRaisedButton(
-            text="Click Here",
+            text="Remove Background",
             pos_hint={'center_x': .5, 'center_y': .5},
             size_hint=(None,None))
         self.save_img_button.bind(on_press=self.take_picture)
@@ -42,8 +42,31 @@ class MainApp(MDApp):
 
         rgba = [b, g , r, alpha]
         destination = cv2.merge(rgba, 4)
-        cv2.imwrite("grabcutout.jpg", destination)
-        self.label.text = "Grabcut successfully"
+        cv2.imwrite("grabcutout.png", destination)
+        self.label.text = "Grabcut successfully!!"
+        self.create_final_image()
+
+    def create_final_image(self):
+        bg_image = cv2.imread("bg.jpg")
+        overlay_img = cv2.imread("grabcutout.png")
+        overlay_img = cv2.resize(overlay_img,(800,533))
+
+        gray_overlay = cv2.cvtColor(overlay_img, cv2.COLOR_BGR2GRAY)
+        overlay_mask = cv2.threshold(gray_overlay, 1, 255, cv2.THRESH_BINARY)[1]
+
+        background_mask = 255 - overlay_mask
+        overlay_mask =cv2.cvtColor(overlay_mask, cv2.COLOR_GRAY2BGR)
+        background_mask = cv2.cvtColor(background_mask, cv2.COLOR_GRAY2BGR)
+
+        bg_image_part = (bg_image * (1/255.0)) * (background_mask * (1/255.0))
+        bg_overlay_part = (overlay_img * (1/255.0)) * (overlay_mask * (1/255.0))
+
+        final_image = cv2.addWeighted(bg_image_part, 255.0, bg_overlay_part, 255.0, 0.0)
+        cv2.putText(final_image,"Tommy Shelby", (50,50), cv2.FONT_HERSHEY_DUPLEX,2,(0,0,0), 2, cv2.LINE_AA)
+        cv2.imwrite("finalout.png", final_image)
+        self.label.text= "final thumbnail is successful!"
+
+
 
 if __name__ == '__main__':
     MainApp().run()
