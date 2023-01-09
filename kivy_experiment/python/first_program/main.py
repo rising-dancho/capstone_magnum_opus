@@ -1,3 +1,10 @@
+# display_person_info
+# Parameters: name, age
+def display_person_info(name, age):
+    print("\tYour name is "+ name +", age: "+ str(age))
+    print("\tSoon you will be "+ str(age+1))
+
+
 def ask_for_the_password():
     password = input("\tWhat is the password? ")
     
@@ -50,11 +57,13 @@ else:
     # Display the results
     print("\n")
     print("OUTPUT:")
-    print("\tYour name is "+ name1 +", age: "+ str(age1))
-    print("\tSoon you will be "+ str(age1+1))
+
+    display_person_info(name1,age1)
+    
     print()
-    print("\tYour name is "+ name2 +", age: "+ str(age2))
-    print("\tSoon you will be "+ str(age2+1))
+    
+    display_person_info(name2,age2)    
+    
     print("\n\n\n")    
             
 
