@@ -1,28 +1,48 @@
 # display_person_info
 # Parameters: name, age
-def display_person_info(name, age):
+
+def display_person_info(name, age, height=0):
     print("\n\t---------------")
     print("\n\t Personal Info:")
-    print("\n\t - Your name is "+ name +", age: "+ str(age))
-    print("\t - Soon you will be "+ str(age+1))
+    print(f"\n\t - Your name is {name}, age: {age}")
+    print(f"\t - Soon you will be {str(age+1)}")
+    
+    # age == 17 : You are almost an adult
+    # age == 18 : You are an adult: congrats!
+    # elif ->  else if
+    # age > 68 : You are a senior
+    # age < 10 : You are a kid
+    # age >= 13 and age < 18 => Teen ager
+    # age == 1 or age == 2 => Baby
 
-    if age >= 18:
-        # age >= 18
+    # sequence is VERY IMPORTANT 
+    # since when a condition is met, the interpreter will skip the rest of the conditions
+    if age == 1 or age == 2:
+        print("\t - You are a baby")
+    elif age == 17:
+        print("\t - You are almost an adult")
+    elif age == 18:
+        print("\t - You are now an adult: congrats!")
+    elif age < 12:
+        print("\t - You are a kid")
+    elif age >= 13 and age < 18:
+        print("\t - You are a teenager")
+    elif age >= 60:
+        print("\t - You are a senior")
+    elif age >= 18:
         print("\t - You are an adult")
     else:
-        # age < 18
         print("\t - You are a minor")
 
-    
     cond = age >= 18
     print("\n\t Is this true?\n")
-    print("\t - question: " +name+ "'s age >= 18?")
+    print(f"\t - question: is {name}'s age >= 18?")
     print("\t - result: " + str(cond))
     print("\t - type: " + str(type(cond)))
+
+    print(f"\t - Your height is : {str(height)}m")
+    print("\t - " + str(type(height)))
  
-
-    
-
 
 def ask_for_the_password():
     password = input("\tWhat is the password? ")
@@ -31,13 +51,14 @@ def ask_for_the_password():
         print("\nERROR: Wrong password!\n")
     return password
 
+
 count = 1
 def ask_for_the_name():
     # ask for the name
-    global count # reference the count variable outside of this function
+    global count # reference the count variable just outside of this function
     name_answer = ""
     while name_answer == "":
-        name_answer = input("\t"+ "user "+ str(count) +": What is your name? ")
+        name_answer = input("\t"+ f"User {str(count)}: What is your name? ")
         if name_answer == "":
             print("\nInvalid Input: Please enter a name")
         count += 1
@@ -48,7 +69,7 @@ def ask_for_the_age(person_name):
         # ask for the age
     age_int = 0 # initialize age variable
     while age_int == 0:
-        age_str = input("\t"+ person_name +", what is your age? ")
+        age_str = input(f"\t{person_name}, what is your age? ")
     
         try:
             age_int = int(age_str)
@@ -66,7 +87,7 @@ while password != "1234":
 
 else:
     
-    print("\n\n\n")
+    print("\n\n")
     print("PERSONAL INFO:\n")
     
     name1 = ask_for_the_name()
@@ -83,18 +104,30 @@ else:
     display_person_info(name2,age2)    
     
     print("\n\n\n")    
-            
 
-""" 
-    CONDITION:
+# NB_PERSONS = 1    
 
-        while password is not valid
-        ask for password
+# for i in range(0,NB_PERSONS):
+#     name = "foo" + str(i+1)
+#     age = ask_for_the_age(name)
+#     display_person_info(name, age)
 
-    OUTPUT:
-        
-        - print
+
+print(
+"""
+
+ this is a multiline comment
+    i can write
+        whatever 
+  i want
+
+
+""")
+
+
+"""  
 
 REFERENCE:
 https://www.udemy.com/course/python-developer-complete-course/learn/lecture/23110518#overview
+
 """
