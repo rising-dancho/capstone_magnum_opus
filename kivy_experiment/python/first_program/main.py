@@ -1,8 +1,27 @@
 # display_person_info
 # Parameters: name, age
 def display_person_info(name, age):
-    print("\tYour name is "+ name +", age: "+ str(age))
-    print("\tSoon you will be "+ str(age+1))
+    print("\n\t---------------")
+    print("\n\t Personal Info:")
+    print("\n\t - Your name is "+ name +", age: "+ str(age))
+    print("\t - Soon you will be "+ str(age+1))
+
+    if age >= 18:
+        # age >= 18
+        print("\t - You are an adult")
+    else:
+        # age < 18
+        print("\t - You are a minor")
+
+    
+    cond = age >= 18
+    print("\n\t Is this true?\n")
+    print("\t - question: " +name+ "'s age >= 18?")
+    print("\t - result: " + str(cond))
+    print("\t - type: " + str(type(cond)))
+ 
+
+    
 
 
 def ask_for_the_password():
@@ -12,14 +31,16 @@ def ask_for_the_password():
         print("\nERROR: Wrong password!\n")
     return password
 
-
+count = 1
 def ask_for_the_name():
     # ask for the name
+    global count # reference the count variable outside of this function
     name_answer = ""
     while name_answer == "":
-        name_answer = input("\tWhat is your name? ")
+        name_answer = input("\t"+ "user "+ str(count) +": What is your name? ")
         if name_answer == "":
             print("\nInvalid Input: Please enter a name")
+        count += 1
     return name_answer
 
 
@@ -45,12 +66,12 @@ while password != "1234":
 
 else:
     
-    print("\n\n\n\n")
+    print("\n\n\n")
     print("PERSONAL INFO:\n")
     
     name1 = ask_for_the_name()
     name2 = ask_for_the_name()
-    
+    print()
     age1  = ask_for_the_age(name1)
     age2  = ask_for_the_age(name2)
 
@@ -59,9 +80,6 @@ else:
     print("OUTPUT:")
 
     display_person_info(name1,age1)
-    
-    print()
-    
     display_person_info(name2,age2)    
     
     print("\n\n\n")    
