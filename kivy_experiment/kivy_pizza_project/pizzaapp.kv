@@ -1,0 +1,103 @@
+#:import utils kivy.utils
+#:set color1 "#DD7835"
+#:set color2 "#D8D8D8"
+
+MainWidget:
+
+<CoverImage@CoverBehavior+Image>:
+    reference_size: self.texture_size
+
+<TitleLabel@FitLabel>:
+    font_size: dp(22)
+    bold: True
+    padding: dp(16), dp(3)
+    canvas.before:
+        Color: 
+            rgb: utils.get_color_from_hex(color1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<MainWidget>:
+    from_main_recycle_view: recycleView
+    CoverImage:
+        source: "images/menu_background.jpg"
+        canvas:
+            Color:
+                rgba: 0,0,0, .6
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    BoxLayout:
+        orientation:'vertical'
+        Image:
+            source: "images/small_logo.png"
+            allow_stretch: True
+            size_hint: None,None
+            size: dp(200), dp(80)
+            pos_hint: {"center_x" : .5}
+        TitleLabel:
+            text:'Our Pizza'
+        BoxLayout:
+            padding: dp(20),dp(20)
+            RecycleView:    
+                id: recycleView
+                viewclass: 'PizzaWidget'
+                RecycleBoxLayout:
+                    default_size: None, dp(56) # vertical spacing between each elements in recycle view 
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height
+                    orientation: 'vertical'
+                    spacing: dp(16)
+
+<LeftAlignLabel@Label>:
+    text_size: self.size
+    halign: "left"
+    valign: "center"
+    canvas.before:
+        Color: 
+            # rgb:  utils.get_random_color()
+            rgba: 0,0,0, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<FitLabel@Label>:
+    size_hint: None, None
+    size: self.texture_size
+
+<Badge@FitLabel>:
+    color: 0,0,0, 1 
+    bold: True
+    font_size: dp(10)
+    padding: dp(8), dp(3)
+    canvas.before:
+        Rectangle:
+            source: "images/badge.png"
+            pos:  self.pos
+            size: self.size
+
+<PizzaWidget>:
+    BoxLayout:
+        size_hint_max_x: dp(300)
+        size_hint_min_x: dp(150)
+        orientation:'vertical'
+        BoxLayout:
+            spacing: dp(10)
+            FitLabel:
+                font_size: dp(22)
+                bold: True
+                text: root.name
+            Badge:
+                text: "VEGETARIAN" if root.vegetarian else ""
+        LeftAlignLabel:
+            color: utils.get_color_from_hex(color2)
+            text: root.ingredients
+    FitLabel:
+        color: utils.get_color_from_hex(color1)
+        font_size: dp(20)
+        text: "$ " + str(root.price)
+        pos_hint: {"top": .9}
+     
+        
