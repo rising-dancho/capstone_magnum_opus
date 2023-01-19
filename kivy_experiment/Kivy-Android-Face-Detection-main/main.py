@@ -5,6 +5,8 @@ from kivy.uix.camera import Camera
 from kivy.lang import Builder
 import numpy as np
 import cv2
+from jnius import autoclass
+from android.permissions import request_permissions, Permission
 
 
 Builder.load_file("myapplayout.kv")
