@@ -8,12 +8,27 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
 
 from kivy.properties import ListProperty
+from kivy.graphics.vertex_instructions import (Rectangle,
+                                             Ellipse,
+                                             Line)
+from kivy.graphics.context_instructions import Color
 
 import random
 
 class ScatterTextWidget(BoxLayout):
     
     text_colour = ListProperty([.9, .6, .4, 1]) # setting default color
+
+    def __init__(self, **kwargs):
+        super(ScatterTextWidget, self).__init__(**kwargs)
+        
+        # with self.canvas.after:
+        #     Color(.2,1,.5,1)
+        #     Rectangle(pos=(0,100), size=(300,100))
+        #     Ellipse(pos=(0,100), size=(300,100))
+        #     Line(points=[0,0,500,600,400,300],
+        #     close=True,
+        #     width=3)
 
     def change_label_colour(self, *args):
         # colour = [random.random() for i in range(3)] + [1]

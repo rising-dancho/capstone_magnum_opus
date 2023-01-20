@@ -1,5 +1,16 @@
+#:import rgba kivy.utils.get_color_from_hex
+
 <ScatterTextWidget>:
     orientation: 'vertical'
+    canvas:
+        Color:
+            # rgba: 1,1,1,1 # presence of all colors is white
+            rgba: rgba('#282C35')
+            
+        Rectangle:
+            pos:  self.pos
+            size: self.size
+    
     TextInput:
         id: text_input
         font_size:150
