@@ -2,14 +2,14 @@
 
 <ScatterTextWidget>:
     orientation: 'vertical'
-    canvas:
-        Color:
-            # rgba: 1,1,1,1 # presence of all colors is white
-            rgba: rgba('#282C35')
+    # canvas:
+    #     Color:
+    #         # rgba: 1,1,1,1 # presence of all colors is white
+    #         rgba: rgba('#282C35')
             
-        Rectangle:
-            pos:  self.pos
-            size: self.size
+    #     Rectangle:
+    #         pos:  self.pos
+    #         size: self.size
     
     TextInput:
         id: text_input
@@ -18,12 +18,29 @@
         height: 200
         text: "default"
         on_text: root.change_label_colour()
-
+    
+    # about texture size
+    # https://kivy.org/doc/stable/api-kivy.uix.label.html#sizing-and-text-content
     FloatLayout:
         Scatter:
+            size_hint: None, None
+            size: my_label.size # change the size of scater to be same as the label
+            # after :helps put the scatter in place when moving
+            canvas.after:
+                Color:
+                    rgba: .5,0,.7,.5
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
             Label:
                 id: my_label
-                text: text_input.text
+                text: text_input.text # text is not constrained to fit the label
                 font_size: 150
                 color: root.text_colour # setting default color 
-         
+                size: self.texture_size
+                canvas:
+                    Color:
+                        rgba: 0,0,.7,.5
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
