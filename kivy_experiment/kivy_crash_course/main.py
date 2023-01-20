@@ -1,3 +1,4 @@
+# SOURCE:  https://www.youtube.com/watch?v=2Gc8iYJQ_qk&list=PLdNh1e1kmiPP4YApJm8ENK2yMlwF1_edq&index=8
 from kivy.app import App
 
 # from kivy.uix.button import Button
@@ -17,7 +18,7 @@ import random
 
 class ScatterTextWidget(BoxLayout):
     
-    text_colour = ListProperty([.9, .6, .4, 1]) # setting default color
+    text_colour = ListProperty([1, 1, 1, 1]) # setting default color
 
     def __init__(self, **kwargs):
         super(ScatterTextWidget, self).__init__(**kwargs)

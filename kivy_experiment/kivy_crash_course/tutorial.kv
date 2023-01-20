@@ -23,6 +23,7 @@
     # https://kivy.org/doc/stable/api-kivy.uix.label.html#sizing-and-text-content
     FloatLayout:
         Scatter:
+            center: self.parent.center
             size_hint: None, None
             size: my_label.size # change the size of scatter to be same as the label
             # after :helps put the scatter in place when moving, but not when rotating
