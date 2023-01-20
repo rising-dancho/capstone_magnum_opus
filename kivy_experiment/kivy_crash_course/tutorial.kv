@@ -24,11 +24,11 @@
     FloatLayout:
         Scatter:
             size_hint: None, None
-            size: my_label.size # change the size of scater to be same as the label
-            # after :helps put the scatter in place when moving
+            size: my_label.size # change the size of scatter to be same as the label
+            # after :helps put the scatter in place when moving, but not when rotating
             canvas.after:
                 Color:
-                    rgba: .5,0,.7,.5
+                    rgba: 0,1,0,.5 # green = scatter color
                 Rectangle:
                     pos: self.pos
                     size: self.size
@@ -40,7 +40,7 @@
                 size: self.texture_size
                 canvas:
                     Color:
-                        rgba: 0,0,.7,.5
+                        rgba: 0,0,1,.5 # blue = label color
                     Rectangle:
                         pos: self.pos
                         size: self.size
