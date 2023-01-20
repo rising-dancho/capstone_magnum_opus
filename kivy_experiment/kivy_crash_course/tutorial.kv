@@ -6,9 +6,11 @@
         size_hint_y: None
         height: 200
         text: "default"
+        on_text: root.change_label_colour()
     FloatLayout:
         Scatter:
             Label:
+                id: my_label
                 text: text_input.text
                 font_size: 150
          
