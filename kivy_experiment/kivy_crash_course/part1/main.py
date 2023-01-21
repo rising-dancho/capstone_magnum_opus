@@ -23,8 +23,8 @@ class ScatterTextWidget(BoxLayout):
     def __init__(self, **kwargs):
         super(ScatterTextWidget, self).__init__(**kwargs)
         
-        # with self.canvas.after:
         #     Color(.2,1,.5,1)
+        # with self.canvas.after:
         #     Rectangle(pos=(0,100), size=(300,100))
         #     Ellipse(pos=(0,100), size=(300,100))
         #     Line(points=[0,0,500,600,400,300],
