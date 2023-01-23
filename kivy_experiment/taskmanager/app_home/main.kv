@@ -1,0 +1,90 @@
+#: import utils kivy.utils
+#: import icon kivy.garden.iconfonts.icon
+#: import mtx kivy.metrics
+
+
+<MainWindow>:
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: [1,1,1,1]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
+    ScreenManager:
+        id: scrn_mngr
+        Screen:
+            name: 'scrn_signin'
+            BoxLayout:
+                orientation: 'vertical'    
+                canvas.before:
+                    Color:
+                        rgb: utils.get_color_from_hex("#FFC444")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Widget:
+                    size_hint_y: .25
+                Label:
+                    text:'%s'%icon('zmdi-account-circle')
+                    font_size: mtx.sp('134')
+                    markup: True
+                    color: utils.get_color_from_hex("#FFFFFF")
+                    size_hint_y: .3
+                BoxLayout:
+                    size_hint_y: .45
+                    orientation: 'vertical'
+                    FLatInput:
+                        id: si_username
+                        hint_text: 'username'
+                        size_hint_y: .2
+                    Widget:
+                        size_hint_y: .01
+                    FLatInput:
+                        id: si_password
+                        hint_text: 'password'
+                        size_hint_y: .2
+                        password: True
+                    Widget:
+                        size_hint_y: .05
+                    Button:
+                        text: 'Sign-in'
+                        size_hint_y: .2
+                    FLatButton:
+                        text: 'New here? Signup'
+                        size_hint_y: .1
+                    Widget:
+                        size_hint_y: .3
+                             
+        Screen:
+            name: 'scrn_signup'
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    text:'Go To Main'
+                    on_release: scrn_mngr.current = 'scrn_main'
+        Screen:
+            name: 'scrn_main'
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    text:'Go To Today'
+                    on_release: scrn_mngr.current = 'scrn_today'
+
+        Screen:
+            name: 'scrn_today'
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    text:'Go To Signin'
+                    on_release: scrn_mngr.current = 'scrn_signin'
+                                        
+                                        
+<FLatButton@Button>:
+    background_normal: ''
+    background_color: [0, 0, 0, 0]
+
+<FLatInput@TextInput>:
+    background_active: ''
+    background_normal: ''
