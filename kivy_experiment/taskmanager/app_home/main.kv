@@ -28,29 +28,38 @@
                     size_hint_y: .25
                 Label:
                     text:'%s'%icon('zmdi-account-circle')
-                    font_size: mtx.sp('134')
+                    font_size: mtx.sp('154')
                     markup: True
                     color: utils.get_color_from_hex("#FFFFFF")
                     size_hint_y: .3
                 BoxLayout:
                     size_hint_y: .45
                     orientation: 'vertical'
+                    padding: [mtx.dp(20), 0]
                     FLatInput:
                         id: si_username
                         hint_text: 'username'
-                        size_hint_y: .2
+                        size_hint_y: .1
                     Widget:
                         size_hint_y: .01
                     FLatInput:
                         id: si_password
                         hint_text: 'password'
-                        size_hint_y: .2
+                        size_hint_y: .1
                         password: True
                     Widget:
                         size_hint_y: .05
-                    Button:
+                    FLatButton:
                         text: 'Sign-in'
-                        size_hint_y: .2
+                        size_hint_y: .1
+                        canvas.before:
+                            Color:
+                                rgb: utils.get_color_from_hex("#282C34")
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [8]
+
                     FLatButton:
                         text: 'New here? Signup'
                         size_hint_y: .1
@@ -88,3 +97,10 @@
 <FLatInput@TextInput>:
     background_active: ''
     background_normal: ''
+    background_color: [1,1,1,0]
+    canvas.before:
+        Color:
+            rgb: utils.get_color_from_hex("#ffffff")
+        Rectangle:
+            pos: self.pos
+            size: [self.size[0], 1]
