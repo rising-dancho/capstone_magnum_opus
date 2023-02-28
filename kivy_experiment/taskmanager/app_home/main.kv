@@ -61,7 +61,9 @@
                         text: 'Login'
                         bold: True
                         size_hint_y: .1
-                        on_release: root.auth_user(si_username, si_password)
+                        on_release: 
+                            root.auth_user(si_username, si_password)
+                            scrn_mngr.transition.direction = "left"
                         canvas.before:
                             Color:
                                 rgb: utils.get_color_from_hex("#282C34")
@@ -146,8 +148,104 @@
             name: 'scrn_main'
             BoxLayout:
                 orientation: 'vertical'
-                
+                canvas.before: 
+                    Color:
+                        rgba: utils.get_color_from_hex("#282C34")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                BoxLayout:
+                    padding: 20
+                    size_hint_y: .1
+                    FLatButton:
+                        text: icon('zmdi-menu')
+                        markup: True
+                        text_size: self.size
+                        valign: 'middle'
+                        font_size: mtx.sp(24)
+                        on_release: 
+                            scrn_mngr.current = "scrn_signin"
+                            scrn_mngr.transition.direction = "right"
 
+                BoxLayout:
+                    orientation: 'vertical'
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex("#282C34")
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [8,8,0,0]
+                    
+                    BoxLayout:
+                        size_hint_y: .3
+                        orientation: 'vertical'
+                        BoxLayout:
+                            size_hint_y: .1
+                            padding: [10,0]
+                            Label:
+                                text: icon('zmdi-arrow-forward')
+                                font_size: mtx.sp(24)
+                                markup: True
+                                size_hint_x: .1
+                            Widget:
+                                size_hint_x: .7
+                            Label:
+                                text:'TODAY'
+                                bold: True
+                                size_hint_x: .2
+                                text_size: self.size
+                                halign: 'right'
+                        BoxLayout:
+                            size_hint_y: .9
+                            id: scroll_parent
+                            ScrollView:
+                                id: sv_today
+                                do_scroll: [True, False]
+                                scroll_type: ['content']
+                                size_hint_y: None
+                                height: self.parent.height
+                                effect_cls: "ScrollEffect"
+                                # bar_width: 
+                                GridLayout:
+                                    id: today_wrapper
+                                    rows: 1
+                                    padding: mtx.dp(10)
+                                    size: self.minimum_size
+                                    size_hint: (None, None)
+                                    Button:
+                                        text: '1'
+                                        size_hint: (None, None)
+                                        size: [scroll_parent.width/2, scroll_parent.height-20]
+                                    Button:
+                                        text: '2'
+                                        size_hint: (None, None)
+                                        size: [scroll_parent.width/2, scroll_parent.height-20]
+                                    Button:
+                                        text: '3'
+                                        size_hint: (None, None)
+                                        size: [scroll_parent.width/2, scroll_parent.height-20]
+                                    Button:
+                                        text: '4'
+                                        size_hint: (None, None)
+                                        size: [scroll_parent.width/2, scroll_parent.height-20]
+                                    
+                    BoxLayout:
+                        size_hint_y: .7
+                        canvas.before:
+                            Color:
+                                rgba: utils.get_color_from_hex("#F8F9FD")
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [8,8,0,0]
+
+
+        
+        
+        
+        
+        
         Screen:
             name: 'scrn_today'
             BoxLayout:
