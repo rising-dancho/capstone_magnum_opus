@@ -37,7 +37,7 @@
                     color: utils.get_color_from_hex("#36290D")
                     size_hint_y: .1
                 Image:
-                    source: 'app/assets/undraw_login.png'
+                    source: 'app/assets/undraw_online_organizer.png'
                     size: self.texture_size
                     size_hint_y: .2
                 BoxLayout:
@@ -61,6 +61,7 @@
                         text: 'Login'
                         bold: True
                         size_hint_y: .1
+                        on_release: root.auth_user(si_username, si_password)
                         canvas.before:
                             Color:
                                 rgb: utils.get_color_from_hex("#282C34")
@@ -92,14 +93,14 @@
                 Widget:
                     size_hint_y: .25
                 Label:
-                    text: "Welcome On Board!"
+                    text: "Welcome Aboard!"
                     font_size: mtx.sp('32')
                     bold: True
                     color: utils.get_color_from_hex("#ffffff")
                     size_hint_y: .15
 
                 Image:
-                    source: 'app/assets/undraw_well_done.png'
+                    source: 'app/assets/undraw_with_love.png'
                     size: self.texture_size
                     size_hint_y: .25
 
@@ -108,13 +109,13 @@
                     orientation: 'vertical'
                     padding: [mtx.dp(20), 0]
                     FLatInput:
-                        id: si_username
+                        id: su_username
                         hint_text: 'username'
                         size_hint_y: .1
                     Widget:
                         size_hint_y: .01
                     FLatInput:
-                        id: si_password
+                        id: su_password
                         hint_text: 'password'
                         size_hint_y: .1
                         password: True
@@ -145,9 +146,7 @@
             name: 'scrn_main'
             BoxLayout:
                 orientation: 'vertical'
-                Button:
-                    text:'Go To Today'
-                    on_release: scrn_mngr.current = 'scrn_today'
+                
 
         Screen:
             name: 'scrn_today'
