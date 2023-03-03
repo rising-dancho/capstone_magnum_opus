@@ -210,17 +210,21 @@
                                 GridLayout:
                                     id: today_wrapper
                                     rows: 1
-                                    padding: mtx.dp(10)
+                                    padding: (mtx.dp(10), mtx.dp(10), mtx.dp(10), mtx.dp(20))
+                                    spacing: mtx.dp(10)
                                     size: self.minimum_size
                                     size_hint: (None, None)
-                                    Button:
-                                        text: '1'
+                                    Task:
+                                        name: 'Task 001asdadasddsda'
+                                        time: '10:24 am'
                                         size_hint: (None, None)
-                                        size: [scroll_parent.width/2, scroll_parent.height-20]
-                                    Button:
-                                        text: '2'
+                                        size: [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
+                                    Task:
+                                        name: 'Add New'
+                                        time: '03:24 pm'
+                                        on_release: root.add_new()
                                         size_hint: (None, None)
-                                        size: [scroll_parent.width/2, scroll_parent.height-20]
+                                        size: [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
                                     Button:
                                         text: '3'
                                         size_hint: (None, None)
@@ -239,13 +243,6 @@
                                 pos: self.pos
                                 size: self.size
                                 radius: [8,8,0,0]
-
-
-        
-        
-        
-        
-        
         Screen:
             name: 'scrn_today'
             BoxLayout:
@@ -253,7 +250,87 @@
                 Button:
                     text:'Go To Signin'
                     on_release: scrn_mngr.current = 'scrn_signin'
-                                               
+<NewTask>:
+    # size_hint: [.8, .7]
+    BoxLayout:
+        orientation:'vertical'
+        padding: '10dp'
+        spacing: '12dp'
+        BoxLayout:
+            size_hint_y: .1
+            FLatInput:
+                id: task_name
+                hint_text: 'task name'
+                hint_text_color: rgba('#eeeeee')
+        BoxLayout:
+            size_hint_y: .1
+            FLatInput:
+                id: task_time
+                hint_text: 'task time'
+                hint_text_color: rgba('#eeeeee')
+        Widget:
+            size_hint_y: .7
+        FlatButton:
+            text: 'Submit'
+            size_hint_y: .1
+            canvas.before:
+                Color:
+                    rgba: rgba('#eeeeee')
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+
+
+<Task>:
+    orientation: "vertical"
+    padding: mtx.dp(15)
+    canvas.before: 
+        Color:
+            rgba: rgba('#FFC444')
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [8]
+    
+    Label:
+        id: task_name
+        text: root.name
+        bold: True
+        font_size: mtx.sp(16)
+        size_hint_y: .15
+        color: rgba('#282C34')
+        text_size: self.size
+        shorten: True
+        shorten_from: 'right'
+        halign: "right"
+    BoxLayout:
+        size_hint_y: .15
+        Label:
+            text: icon('zmdi-time-countdown')
+            markup: True
+            size_hint_x: .6
+            text_size: self.size
+            halign: 'right'
+            color: rgba('#282C34')
+        Label:
+            id: task_time
+            text: root.time
+            size_hint_x: .4
+            text_size: self.size
+            halign: "right"
+            color: rgba('#282C34')
+    
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        size_hint_y: .70
+        FLatButton:
+            text: icon('zmdi-delete')
+            markup: True
+            font_size: '24sp'
+            size_hint_x: .2
+            color: rgba('#282C34')
+
 <FLatButton@Button>:
     background_normal: ''
     background_color: [0, 0, 0, 0]
