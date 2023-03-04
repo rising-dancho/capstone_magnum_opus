@@ -2,7 +2,7 @@
 #: import icon kivy.garden.iconfonts.icon
 #: import mtx kivy.metrics
 #: import WipeTransition kivy.uix.screenmanager.WipeTransition
-
+#: import DatePicker datepicker.datepicker.DatePicker
 
 <MainWindow>:
     orientation: 'vertical'
@@ -251,31 +251,61 @@
                     text:'Go To Signin'
                     on_release: scrn_mngr.current = 'scrn_signin'
 <NewTask>:
-    # size_hint: [.8, .7]
+    size_hint: [.8, .5]
     BoxLayout:
         orientation:'vertical'
         padding: '10dp'
         spacing: '12dp'
+        # canvas.before:
+        #     Color:
+        #         rgba: rgba('#ffffff')
+        #     RoundedRectangle:
+        #         pos: self.pos
+        #         size: self.size
+        #         radius: [8]
         BoxLayout:
-            size_hint_y: .1
-            FLatInput:
+            size_hint_y: .15
+            # padding: '4dp'
+            FlatInputWhite:
                 id: task_name
                 hint_text: 'task name'
-                hint_text_color: rgba('#eeeeee')
-        BoxLayout:
-            size_hint_y: .1
-            FLatInput:
-                id: task_time
-                hint_text: 'task time'
-                hint_text_color: rgba('#eeeeee')
+                hint_text_color: rgba('#282C34')
         Widget:
-            size_hint_y: .7
-        FlatButton:
-            text: 'Submit'
+            size_hint_y: .16
+        BoxLayout:
+            id: datetime
+            size_hint_y: .15
+            # padding: '4dp'
+            DatePicker:
+                id: task_date
+                size_hint_x: .7
+                background_active: ''
+                background_normal: ''
+                background_color: [1,1,1,0]
+                canvas.before:
+                    Color:
+                        rgb: utils.get_color_from_hex("#ffffff")
+                    Rectangle:
+                        pos: self.pos
+                        size: [self.size[0], 1]
+            FLatButton:
+                id: task_time
+                text: '00:00'
+                size_hint_x: .3
+                on_release: root.get_time()
+
+
+
+        Widget:
             size_hint_y: .1
+        FLatButton:
+            text: 'Submit'
+            bold: True
+            size_hint_y: .1
+            color: utils.get_color_from_hex("#282C34")
             canvas.before:
                 Color:
-                    rgba: rgba('#eeeeee')
+                    rgba: rgba('#FFC444')
                 RoundedRectangle:
                     pos: self.pos
                     size: self.size
@@ -291,7 +321,7 @@
             pos: self.pos
             size: self.size
             radius: [8]
-    
+
     Label:
         id: task_name
         text: root.name
@@ -342,6 +372,17 @@
     canvas.before:
         Color:
             rgb: utils.get_color_from_hex("#ffffff")
+        Rectangle:
+            pos: self.pos
+            size: [self.size[0], 1]
+
+<FlatInputWhite@TextInput>:
+    background_active: ''
+    background_normal: ''
+    background_color: [1,1,1,0]
+    canvas.before:
+        Color:
+            rgba: rgba("#ffffff")
         Rectangle:
             pos: self.pos
             size: [self.size[0], 1]
