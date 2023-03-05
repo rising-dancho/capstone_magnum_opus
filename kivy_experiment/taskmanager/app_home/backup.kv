@@ -214,12 +214,6 @@
                                     spacing: mtx.dp(10)
                                     size: self.minimum_size
                                     size_hint: (None, None)
-                                    # Task:
-                                    #     name: 'Add New'
-                                    #     time: '03:24 pm'
-                                    #     on_release: root.add_new()
-                                    #     size_hint: (None, None)
-                                    #     size: [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
                                     NewButton:
                                         name: 'Add New'
                                         time: '03:24 pm'
@@ -227,35 +221,35 @@
                                         size_hint: (None, None)
                                         size: [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
                                     
-                    BoxLayout:
-                        size_hint_y: .6
-                        orientation: 'vertical'
-                        spacing: mtx.dp(5)
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#F8F9FD")
-                            RoundedRectangle:
-                                pos: self.pos
-                                size: self.size
-                                radius: [8,8,0,0]
                         BoxLayout:
-                            size_hint_y: .1
-                            padding: ['10dp','2dp']
-                            Label:
-                                text: icon('zmdi-arrow-forward')
-                                font_size: mtx.sp(24)
-                                markup: True
-                                size_hint_x: .7
-                                text_size: self.size
-                                valign: 'middle'
-                                color: rgba('#282C34')
-                            Label:
-                                text:'UPCOMING'
-                                bold: True
-                                size_hint_x: .3
-                                color: rgba('#282C34')
+                            size_hint_y: .6
+                            orientation: 'vertical'
+                            spacing: mtx.dp(5)
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#F8F9FD")
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [8,8,0,0]
+                            BoxLayout:
+                                size_hint_y: .1
+                                padding: ['10dp','2dp']
+                                Label:
+                                    text: icon('zmdi-forward')
+                                    font_size: mtx.sp(18)
+                                    markup: True
+                                    size_hint_x: .7
+                                    text_size: self.size
+                                    color: rgba('#F8F9FD')
+                                    valign: 'middle'
+                                Label:
+                                    text: 'UPCOMING'
+                                    bold: True
+                                    size_hint_x: .3
+                                    color: rgba('#F8F9FD')
                         BoxLayout:
-                            size_hint_y: .9
+                            size_hint_y: .4
                             ScrollView:
                                 size_hint_y: None
                                 height: self.parent.height
@@ -266,10 +260,12 @@
                                     size: self.minimum_size
                                     padding: mtx.dp(10)
                                     spacing: mtx.dp(10)
+
+
         Screen:
             name: 'scrn_today'
             BoxLayout:
-                orientation: 'vertical' 
+                orientation: 'vertical'
                 Button:
                     text:'Go To Signin'
                     on_release: scrn_mngr.current = 'scrn_signin'
@@ -335,7 +331,7 @@
                     size: self.size
 
 
-<Task>:
+<Today>:
     orientation: "vertical"
     padding: mtx.dp(15)
     canvas.before: 

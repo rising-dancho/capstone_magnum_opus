@@ -34,6 +34,8 @@ class NewTask(ModalView):
         mv.dismiss()
         self.ids.task_time.text=str(time)
 
+class NewButton(ButtonBehavior, BoxLayout):
+    ...
 
 class Task(ButtonBehavior, BoxLayout):
     """
@@ -55,18 +57,54 @@ class Task(ButtonBehavior, BoxLayout):
     
     name = StringProperty('')
     time = StringProperty('')
+    date = StringProperty('')
     def __init__(self, **kw):
         super().__init__(**kw)
-        
+
+class Today(Task):
+    ...
+
+class Upcoming(Task):
+    ...
 
 class MainWindow(BoxLayout):
     def __init__(self, **kw):
         super().__init__(**kw)
     
     def add_new(self):
+        """
+        Description of add_new
+
+        Args:
+            self (undefined):
+
+        """
         nt = NewTask()
         nt.open()
     
+    def add_task(self, mv, xtask: tuple):
+        
+        error = False
+        scroll_parent = self.ids.scroll_parent
+        tw = self.ids.today_wrapper
+        for t in xtask:
+            if len(t.text) < 1:
+                t.hint_text ='Field required'
+                t.hint_text_color = [1,0,0,1]
+                error = True
+        if error:
+            pass
+        else:
+            task= Today()
+            task.name = xtask[0].text
+            task.time = xtask[1].text
+            task.date = xtask[2].text
+            task.size_hint = (None, None)
+            task.size = [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
+
+            tw.add_widget(task)
+            mv.dismiss()
+
     def auth_user(self, username,  password):
         """
         Authenticates a user given credentials
