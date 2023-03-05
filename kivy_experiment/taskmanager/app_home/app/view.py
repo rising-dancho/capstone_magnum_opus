@@ -20,7 +20,7 @@ class NewTask(ModalView):
         cl = CircularTimePicker()
         cl.bind(time= self.set_time)
         
-        submit = Button(text="Okay", background_normal='', background_color=rgba('#282C34'), size_hint_y=.1)
+        submit = Button(text="OK", background_normal='', background_color=rgba('#282C34'), size_hint_y=.1)
         submit.bind(on_release=lambda x: self.update_time(cl.time, mv))
         box.add_widget(cl)
         # box.add_widget(Button(background_disabled='', background_color=[1,1,1,0], disabled=True))
