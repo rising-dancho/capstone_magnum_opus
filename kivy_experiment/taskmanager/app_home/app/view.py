@@ -7,6 +7,7 @@ from kivy.uix.button import Button
 from kivy.properties import StringProperty, NumericProperty
 from kivy.metrics import sp,dp
 from kivy.utils import rgba
+from app.storage.db import Database
 
 class NewTask(ModalView):
     def __init__(self, **kw):
@@ -70,6 +71,7 @@ class Upcoming(Task):
 class MainWindow(BoxLayout):
     def __init__(self, **kw):
         super().__init__(**kw)
+        self.db = Database()
     
     def add_new(self):
         """
@@ -101,7 +103,6 @@ class MainWindow(BoxLayout):
             task.date = xtask[2].text
             task.size_hint = (None, None)
             task.size = [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
-
             tw.add_widget(task)
             mv.dismiss()
 
