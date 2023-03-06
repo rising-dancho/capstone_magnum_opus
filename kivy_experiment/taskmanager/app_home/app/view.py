@@ -105,6 +105,13 @@ class MainWindow(BoxLayout):
             tw.add_widget(task)
             mv.dismiss()
 
+            # check if we have enough task to show 
+            # if len(tw.children) > 1:
+            #     for child in tw.children:
+            #         if type(child) == NewButton:
+            #             tw.remove_widget(child)
+            #             break
+
     def auth_user(self, username,  password):
         """
         Authenticates a user given credentials

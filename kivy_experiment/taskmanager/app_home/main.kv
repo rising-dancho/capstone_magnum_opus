@@ -73,7 +73,6 @@
                                 pos: self.pos
                                 size: self.size
                                 radius: [8]
-
                     FlatButton:
                         text: 'New here? Sign up'
                         size_hint_y: .1
@@ -154,15 +153,36 @@
                 side_panel_width: .75*self.width
                 BoxLayout:
                     id: sidenav
+                    orientation: 'vertical'
+                    padding: mtx.dp(10)
                     canvas.before: 
                         Color:
                             rgba: utils.get_color_from_hex("#ffffff")
                         Rectangle:
                             pos: self.pos
                             size: self.size
+                    ListEntry:
+                        text: '%s  Add New'%icon('zmdi-edit')
+                        markup: True
+                        color: rgba('#282C34')
+                        size_hint_y: .07
+                        on_release: 
+                            nav.toggle_state()
+                            app.root.add_new() 
+                    ListEntry:
+                        text: '%s  Logout'%icon('zmdi-tag-close')
+                        markup: True
+                        color: rgba('#282C34')
+                        size_hint_y: .07
+                        on_release: 
+                            scrn_mngr.current = "scrn_signin"
+                            scrn_mngr.transition.direction = "right"
+                    Widget:
+
                 BoxLayout:
                     orientation: 'vertical'
                     id: main_content
+                    # padding:  mtx.dp(10)
                     canvas.before: 
                         Color:
                             rgba: utils.get_color_from_hex("#282C34")
@@ -180,8 +200,6 @@
                             font_size: mtx.sp(24)
                             on_release: 
                                 nav.toggle_state()
-                                # scrn_mngr.current = "scrn_signin"
-                                # scrn_mngr.transition.direction = "right"
 
                     BoxLayout:
                         orientation: 'vertical'
@@ -302,10 +320,7 @@
                                             name: 'upcoming 004'
                                             time: '10:24'
                                             size_hint: (1, None)
-                                            height: mtx.dp(150) 
-                        
-                        
-                        
+                                            height: mtx.dp(150)               
         Screen:
             name: 'scrn_today'
             BoxLayout:
@@ -313,6 +328,17 @@
                 Button:
                     text:'Go To Signin'
                     on_release: scrn_mngr.current = 'scrn_signin'
+
+<ListEntry@FlatButton>:
+    text_size: self.size
+    valign: 'middle'
+    canvas.before:
+        Color:
+            rgba: rgba('#dfdfdf')
+        Rectangle:
+            pos: self.pos
+            size: (self.size[0], mtx.dp(1)) # x-axis, y-axis
+
 <NewTask>:
     size_hint: [.8, .5]
     BoxLayout:
