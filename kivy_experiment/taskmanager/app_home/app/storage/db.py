@@ -27,6 +27,34 @@ class Database(object):
         conn = sqlite3.connect(os.path.join(self.path, 'db.sqlite'))
         return conn
 
+    def  auth_user(self, user: tuple):
+        conn = self.db_connect()
+        cur = conn.cursor()
+
+        sql = "SELECT * FROM users WHERE name=?"
+        name, passw = user
+        try:
+            pwd = hashlib.sha256(passw.encode()).hexdigest()
+            userx = (name, pwd)
+            cur.execute(sql, [name]) # has to be a list otherwise will cause an error
+            conn.commit()
+
+            dat = cur.fetchall()
+            if len(dat) > 0:
+                db_user = dat[0]
+                if pwd == db_user[2]:
+                    return True
+                else:
+                    return False 
+            else:
+                return False
+               
+        except Exception as e:
+            print(e)
+            return [] # return empty list
+
+
+    
     def add_user(self, user: tuple):
         """
         Description of Add user to Database
