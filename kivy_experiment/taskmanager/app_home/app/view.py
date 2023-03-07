@@ -21,7 +21,7 @@ class NewTask(ModalView):
         cl = CircularTimePicker()
         cl.bind(time= self.set_time)
         
-        submit = Button(text="OK", background_normal='', background_color=rgba('#282C34'), size_hint_y=.1)
+        submit = Button(text="OK", background_normal='', bold= True, color=rgba('#282C34'), background_color=rgba('#F8F9FD'), size_hint_y=.1)
         submit.bind(on_release=lambda x: self.update_time(cl.time, mv))
         box.add_widget(cl)
         # box.add_widget(Button(background_disabled='', background_color=[1,1,1,0], disabled=True))
@@ -99,11 +99,20 @@ class MainWindow(BoxLayout):
         else:
             task= Today()
             task.name = xtask[0].text
-            task.time = xtask[1].text
-            task.date = xtask[2].text
+            task.date = xtask[1].text
+            task.time = xtask[2].text
             task.size_hint = (None, None)
             task.size = [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
-            tw.add_widget(task)
+
+            # add task to db
+            date = ' '.join([xtask[1].text, xtask[2].text])
+            task_ = (xtask[0].text, date)
+            
+            # only add our task to the view only if it was 
+            # added to the database successfully!
+            if self.db.add_task(task_):
+                tw.add_widget(task)
+            
             mv.dismiss()
 
             # check if we have enough task to show 

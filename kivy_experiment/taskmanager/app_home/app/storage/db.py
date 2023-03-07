@@ -27,7 +27,84 @@ class Database(object):
         conn = sqlite3.connect(os.path.join(self.path, 'db.sqlite'))
         return conn
 
+    def add_task(self, task: tuple):
+        conn = self.db_connect()
+        cur = conn.cursor()
+        
+     
+        try:
+            sql = "INSERT INTO tasks(name, date) VALUES(?,?)"
+            cur.execute(sql, task)
+            conn.commit()
+            return True
+        
+        except Exception as e:
+            print(e)
+            return False
+    
+    def delete_task(self, name):
+        conn = self.db_connect()
+        cur = conn.cursor()
+        
+     
+        try:
+            sql = """DELETE FROM tasks
+            WHERE name=?
+            """
+            cur.execute(sql, [name]) # delete all task with same name
+            conn.commit()
+            return True
+        
+        except Exception as e:
+            print(e)
+            return False
+
+
+    def get_tasks(self):
+        conn = self.db_connect()
+        cur = conn.cursor()  
+     
+        try:
+            sql = """SELECT * FROM tasks
+            """
+            cur.execute(sql)
+            conn.commit()
+            data = cur.fetchall()
+            
+            return data
+        except Exception as e:
+            print(e)
+            return False
+
+    def update_task(self, task: list):
+        conn = self.db_connect()
+        cur = conn.cursor()
+        
+        try:
+            sql = """UPDATE tasks 
+            SET name=?, 
+            date=? 
+            WHERE name=?
+            """
+            task.append(task[0])
+            cur.execute(sql, task)
+            conn.commit()
+            return True
+        
+        except Exception as e:
+            print(e)
+            return False
+
+    
     def  auth_user(self, user: tuple):
+        """
+        Description of Authenticate user on the database
+
+        Args:
+            self (undefined):
+            user (tuple): a tuple with user's name and password
+
+        """
         conn = self.db_connect()
         cur = conn.cursor()
 
