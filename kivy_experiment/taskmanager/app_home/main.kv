@@ -216,20 +216,29 @@
                             orientation: 'vertical'
                             BoxLayout:
                                 size_hint_y: .1
-                                padding: mtx.dp(10)
-                                Label:
-                                    text: icon('zmdi-arrow-forward')
-                                    font_size: mtx.sp(24)
-                                    markup: True
-                                    size_hint_x: .1
-                                Widget:
-                                    size_hint_x: .7
-                                Label:
+                                padding: [10,0]
+                                FlatButton:
                                     text:'TODAY'
                                     bold: True
+                                    text_size: self.size
+                                    valign: 'middle'
+                                    halign: 'left'
+                                    size_hint_x: .8
+                                    on_release: 
+                                        scrn_mngr.current = 'scrn_today'
+                                        scrn_mngr.transition.direction = "left"
+                                    
+                                FlatButton:
+                                    text: icon('zmdi-chevron-right')
+                                    font_size: mtx.sp(24)
+                                    markup: True
                                     size_hint_x: .2
                                     text_size: self.size
                                     halign: 'right'
+                                    on_release: 
+                                        scrn_mngr.current = 'scrn_today'
+                                        scrn_mngr.transition.direction = "left"
+                                    
                             BoxLayout:
                                 size_hint_y: .9
                                 id: scroll_parent
@@ -248,15 +257,9 @@
                                         spacing: mtx.dp(10)
                                         size: self.minimum_size
                                         size_hint: (None, None)
-                                        # Today:
-                                        #     name: 'Add New'
-                                        #     time: '03:24 pm'
-                                        #     on_release: root.add_new()
-                                        #     size_hint: (None, None)
-                                        #     size: [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
                                         NewButton:
                                             name: 'Add New'
-                                            time: '03:24 pm'
+                                            # time: '03:24 pm'
                                             on_release: root.add_new()
                                             size_hint: (None, None)
                                             size: [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
@@ -267,27 +270,39 @@
                             spacing: mtx.dp(5)
                             canvas.before:
                                 Color:
-                                    rgba: utils.get_color_from_hex("#F8F9FD")
+                                    rgba: utils.get_color_from_hex("#FCFDFE")
                                 RoundedRectangle:
                                     pos: self.pos
                                     size: self.size
                                     radius: [8,8,0,0]
                             BoxLayout:
                                 size_hint_y: .1
-                                padding: [mtx.dp(10),mtx.dp(2)]
-                                Label:
-                                    text: icon('zmdi-arrow-forward')
-                                    font_size: mtx.sp(24)
-                                    markup: True
-                                    size_hint_x: .7
-                                    text_size: self.size
-                                    valign: 'middle'
-                                    color: rgba('#282C34')
-                                Label:
+                                padding: [12, 5]
+                                FlatButton:
                                     text:'UPCOMING'
                                     bold: True
-                                    size_hint_x: .3
+                                    size_hint_x: .8
+                                    text_size: self.size
+                                    valign: 'middle'
+                                    halign: 'left'
                                     color: rgba('#282C34')
+                                    on_release: 
+                                        scrn_mngr.current = 'scrn_upcoming'
+                                        scrn_mngr.transition.direction = "up"
+
+                                FlatButton:
+                                    text: icon('zmdi-chevron-up')
+                                    font_size: mtx.sp(24)
+                                    markup: True
+                                    size_hint_x: .2
+                                    text_size: self.size
+                                    valign: 'middle'
+                                    halign: 'right'
+                                    color: rgba('#282C34')
+                                    on_release: 
+                                        scrn_mngr.current = 'scrn_upcoming'
+                                        scrn_mngr.transition.direction = "up"
+                                    
                             BoxLayout:
                                 size_hint_y: .9
                                 id: upcoming_wrapper
@@ -301,33 +316,124 @@
                                         size: self.minimum_size
                                         padding: mtx.dp(10)
                                         spacing: mtx.dp(10)
-                                        Upcoming: 
-                                            name: 'upcoming 001'
-                                            time: '10:24'
-                                            size_hint: (1, None)
-                                            height: mtx.dp(150) 
-                                        Upcoming: 
-                                            name: 'upcoming 002'
-                                            time: '10:24'
-                                            size_hint: (1, None)
-                                            height: mtx.dp(150) 
-                                        Upcoming: 
-                                            name: 'upcoming 003'
-                                            time: '10:24'
-                                            size_hint: (1, None)
-                                            height: mtx.dp(150) 
-                                        Upcoming: 
-                                            name: 'upcoming 004'
-                                            time: '10:24'
-                                            size_hint: (1, None)
-                                            height: mtx.dp(150)               
+                                        # Upcoming: 
+                                        #     name: 'upcoming 001'
+                                        #     time: '10:24'
+                                        #     size_hint: (1, None)
+                                        #     height: mtx.dp(150) 
+                                        # Upcoming: 
+                                        #     name: 'upcoming 002'
+                                        #     time: '10:24'
+                                        #     size_hint: (1, None)
+                                        #     height: mtx.dp(150) 
+                                        # Upcoming: 
+                                        #     name: 'upcoming 003'
+                                        #     time: '10:24'
+                                        #     size_hint: (1, None)
+                                        #     height: mtx.dp(150) 
+                                        # Upcoming: 
+                                        #     name: 'upcoming 004'
+                                        #     time: '10:24'
+                                        #     size_hint: (1, None)
+                                        #     height: mtx.dp(150)               
         Screen:
             name: 'scrn_today'
             BoxLayout:
                 orientation: 'vertical' 
-                Button:
-                    text:'Go To Signin'
-                    on_release: scrn_mngr.current = 'scrn_signin'
+                padding: [10,0]
+                canvas.before: 
+                    Color:
+                        rgba: utils.get_color_from_hex("#282C34")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                BoxLayout:
+                    size_hint_y: .07
+                    padding: [13,0]
+                    FlatButton:
+                        text: icon('zmdi-chevron-left')
+                        font_size: mtx.dp(24)
+                        markup: True
+                        color: rgba('#ffffff')
+                        text_size: self.size
+                        valign: "middle"
+                        size_hint_x: .7
+                        on_release: 
+                            scrn_mngr.current = 'scrn_main'
+                            scrn_mngr.transition.direction = "right"
+                    FlatButton:
+                        text:'TODAY'
+                        size_hint_x: .3
+                        text_size: self.size
+                        halign: "right"
+                        valign: "middle"
+                        color: rgba("#ffffff")
+                        bold: True
+                        on_release: 
+                            scrn_mngr.current = 'scrn_main'
+                            scrn_mngr.transition.direction = "right"
+
+                BoxLayout:
+                    size_hint_y: .93
+                    ScrollView:
+                        size_hint_y: None
+                        height: self.parent.height
+                        GridLayout:
+                            id: all_today
+                            cols: 2
+                            size_hint_y: None
+                            size: self.minimum_size
+                            padding: mtx.dp(10)
+                            spacing: mtx.dp(10)
+
+        Screen:
+            name: 'scrn_upcoming'
+            BoxLayout:
+                orientation: 'vertical' 
+                padding: [10,0]
+                canvas.before: 
+                    Color:
+                        rgba: utils.get_color_from_hex("#FCFDFE")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                BoxLayout:
+                    size_hint_y: .07
+                    padding: [13,0]
+                    FlatButton:
+                        text: icon('zmdi-chevron-down')
+                        font_size: mtx.dp(24)
+                        markup: True
+                        color: rgba('#282C34')
+                        text_size: self.size
+                        valign: "middle"
+                        size_hint_x: .7
+                        on_release: 
+                            scrn_mngr.current = 'scrn_main'
+                            scrn_mngr.transition.direction = "down"
+                    FlatButton:
+                        text:'UPCOMING'
+                        size_hint_x: .3
+                        text_size: self.size
+                        halign: "right"
+                        valign: "middle"
+                        color: rgba("#282C34")
+                        bold: True
+                        on_release: 
+                            scrn_mngr.current = 'scrn_main'
+                            scrn_mngr.transition.direction = "down"
+                BoxLayout:
+                    size_hint_y: .93
+                    ScrollView:
+                        size_hint_y: None
+                        height: self.parent.height
+                        GridLayout:
+                            id: all_upcoming
+                            cols: 2
+                            size_hint_y: None
+                            size: self.minimum_size
+                            padding: mtx.dp(10)
+                            spacing: mtx.dp(10)
 
 <ListEntry@FlatButton>:
     text_size: self.size
@@ -436,9 +542,10 @@
         FlatButton:
             text: icon('zmdi-delete')            
             markup: True
-            font_size: mtx.sp(18)
+            font_size: mtx.sp(20)
             size_hint_x: .2
             color: rgba('#282C34')
+            
     
 
 <Today>:
@@ -468,14 +575,15 @@
         Label:
             text: icon('zmdi-time-countdown')
             markup: True
-            size_hint_x: .6
+            size_hint_x: .3
             text_size: self.size
             halign: 'right'
             color: rgba('#282C34')
         Label:
             id: task_time
             text: root.time
-            size_hint_x: .4
+            size_hint_x: .7
+            font_size: mtx.sp(12)
             text_size: self.size
             halign: "right"
             color: rgba('#282C34')
@@ -487,10 +595,10 @@
         FlatButton:
             text: icon('zmdi-delete')
             markup: True
-            font_size: '24sp'
+            font_size: mtx.sp(20)
             size_hint_x: .2
             color: rgba('#282C34')
-            on_release: root.parent.remove_widget(root)
+            on_release: app.root.delete_task(root)
 
 
 <NewButton>:

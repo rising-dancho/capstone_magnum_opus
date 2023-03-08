@@ -5,9 +5,13 @@ from kivy.garden.circulardatetimepicker import CircularTimePicker
 from kivy.uix.button import Button
 
 from kivy.properties import StringProperty, NumericProperty
+from kivy.core.window import Window
+
 from kivy.metrics import sp,dp
 from kivy.utils import rgba
 from app.storage.db import Database
+
+from datetime import datetime
 
 class NewTask(ModalView):
     def __init__(self, **kw):
@@ -72,6 +76,94 @@ class MainWindow(BoxLayout):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.db = Database()
+
+        self.init_view()
+
+    def init_view(self):
+        """ get all tasks from db and show it
+        """ 
+        all_tasks = self.db.get_tasks()
+        scroll_parent = Window
+        tw = self.ids.today_wrapper
+        uw = self.ids.upcoming
+
+        for t in all_tasks:
+            date, time = t[2].rsplit(' ', 1) # split the outputs separated by space
+            
+            if self.clean_date(date):
+                task = Today() # from main page
+                task.name = t[1].upper()
+                task.date = date
+                task.time = time
+                task.size_hint = (None, 1) # 1 means use the available hight for the widget
+                task.size = [scroll_parent.width/2.4, 45]  # 45 will not work since Window function overides whetever is in here   
+                
+                t_task = Today() # from today page
+                t_task.name = t[1].upper()
+                t_task.date = date
+                t_task.time = time
+                t_task.size_hint = (None, None) # 1 means use the available hight for the widget
+                t_task.size = [scroll_parent.width/2.4, round(scroll_parent.height/4)]  # 4 divisions
+                
+                tw.add_widget(task)
+                self.ids.all_today.add_widget(t_task)
+
+                
+            else:
+                task = Upcoming() # from main page
+                task.name = t[1]
+                task.time = ' '.join([date,time])
+                task.date = date
+                task.size_hint = [1, None]
+                task.height = dp(100)
+
+                u_task = Upcoming() # from upcoming page
+                u_task.name = t[1]
+                u_task.time = ' '.join([date,time])
+                u_task.date = date
+                u_task.size_hint = (None, None) 
+                u_task.size = [scroll_parent.width, round(scroll_parent.height/4)]  # 4 divisions
+
+                uw.add_widget(task)
+                self.ids.all_upcoming.add_widget(u_task)
+
+        # check if we have enough task to show 
+        # if len(tw.children) > 1:
+        #     for child in tw.children:
+        #         if type(child) == NewButton:
+        #             tw.remove_widget(child)
+        #             break
+            
+            
+    
+    def clean_date(self, date: str):
+        # print(date)
+        today = datetime.today()
+        _date = date.split('/')
+        if len(_date) < 3:
+            _date = date.split('-')
+        date_ = [int(x) for x in reversed(_date)]
+
+        task_date = datetime(date_[0], date_[1], date_[2])
+
+        x = abs((today - task_date).days)
+        # print(x)
+        
+        if x == 0:
+            return True
+        else:
+            return False
+
+    
+    def delete_task(self, task: Today):
+        """ delete a task from the today module and also delete it from the database
+
+        Args:
+            task (Today): _description_
+        """        
+        name = task.name
+        if self.db.delete_task(name):
+            task.parent.remove_widget(task)
     
     def add_new(self):
         """
