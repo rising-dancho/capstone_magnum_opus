@@ -66,6 +66,19 @@ class Task(ButtonBehavior, BoxLayout):
     def __init__(self, **kw):
         super().__init__(**kw)
 
+        self.bind(on_release=lambda x: self.view_task())
+    
+    def view_task(self):
+        vt = ViewTask()
+        vt.ids.name.text = self.name
+        vt.ids.time.text = self.time
+        vt.ids.date.text = self.date
+        vt.open()
+
+
+class ViewTask(ModalView):
+    pass
+
 class Today(Task):
     ...
 

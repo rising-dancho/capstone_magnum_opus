@@ -445,6 +445,59 @@
             pos: self.pos
             size: (self.size[0], mtx.dp(1)) # x-axis, y-axis
 
+<ViewTask>:
+    size_hint: [.8,.7]
+    BoxLayout:
+        orientation: 'vertical'
+        padding: mtx.dp(15)
+        canvas.before:
+            Color:
+                rgba: [1,1,1,1]
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [mtx.dp(10)]
+
+        TextInput:
+            id: name
+            background_disabled_normal: ''
+            background_color: [0,0,0,0]
+            disabled_foreground_color: rgba('#282C34')
+            disabled: True
+            size_hint_y: .7
+
+        BoxLayout:
+            size_hint_y: .3
+            orientation: 'vertical'
+            BoxLayout:
+                Label:
+                    text: 'Date: '
+                    bold: True
+                    color: rgba('#282C34')
+                    size_hint_x: .4
+                    text_size: self.size
+                    valign: 'middle'
+                Label:
+                    id: date
+                    color: rgba('#282C34')
+                    size_hint_x: .6
+                    text_size: self.size
+                    valign: 'middle'
+            BoxLayout:
+                Label:
+                    text: 'Time: '
+                    bold: True
+                    color: rgba('#282C34')
+                    size_hint_x: .4
+                    text_size: self.size
+                    valign: 'middle'
+                Label:
+                    id: time
+                    color: rgba('#282C34')
+                    size_hint_x: .6
+                    text_size: self.size
+                    valign: 'middle'
+
 <NewTask>:
     size_hint: [.8, .5]
     BoxLayout:
