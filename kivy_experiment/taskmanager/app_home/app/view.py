@@ -154,6 +154,17 @@ class MainWindow(BoxLayout):
         else:
             return False
 
+    def update_task(self, inst):
+        nt = NewTask()
+        # nt.ids.task_name.text = inst.name
+        # nt.ids.task_time.text = inst.time
+        # nt.ids.task_date.text = inst.date
+        nt.ids.submit_wrapper.clear_widgets()
+        submit = Button(text="Update Task", background_normal='', bold= True, color=rgba('#282C34'), background_color=rgba('#F8F9FD'))
+        # submit.bind(on_release=lambda x: self.update_task(nt, inst))
+        nt.ids.submit_wrapper.add_widget(submit)
+        nt.open()
+
     
     def delete_task(self, task: Today):
         """ delete a task from the today module and also delete it from the database
