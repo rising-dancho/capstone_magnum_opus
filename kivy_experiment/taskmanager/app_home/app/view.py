@@ -22,13 +22,12 @@ class NewTask(ModalView):
         box = BoxLayout(orientation = 'vertical', size_hint=[.8,.8])
         mv.add_widget(box)
 
-        cl = CircularTimePicker()
+        cl = CircularTimePicker(color=[1,1,1,1])
         cl.bind(time= self.set_time)
         
-        submit = Button(text="OK", background_normal='', bold= True, color=rgba('#282C34'), background_color=rgba('#F8F9FD'), size_hint_y=.1)
+        submit = Button(text="OK", background_normal='', bold= True, color=rgba('#282C34'), background_color=[1,1,1,1], size_hint_y=.1)
         submit.bind(on_release=lambda x: self.update_time(cl.time, mv))
         box.add_widget(cl)
-        # box.add_widget(Button(background_disabled='', background_color=[1,1,1,0], disabled=True))
         box.add_widget(submit)
         mv.open()
 
@@ -61,6 +60,7 @@ class Task(ButtonBehavior, BoxLayout):
     """
     
     name = StringProperty('')
+    og_name = StringProperty('')
     time = StringProperty('')
     date = StringProperty('')
     def __init__(self, **kw):
@@ -77,7 +77,7 @@ class Task(ButtonBehavior, BoxLayout):
 
 
 class ViewTask(ModalView):
-    pass
+    ...
 
 class Today(Task):
     ...
@@ -105,16 +105,18 @@ class MainWindow(BoxLayout):
             
             if self.clean_date(date):
                 task = Today() # from main page
+                task.og_name = t[1]
                 task.name = t[1].upper()
-                task.date = date
                 task.time = time
+                task.date = date
                 task.size_hint = (None, 1) # 1 means use the available hight for the widget
                 task.size = [scroll_parent.width/2.4, 45]  # 45 will not work since Window function overides whetever is in here   
                 
                 t_task = Today() # from today page
                 t_task.name = t[1].upper()
-                t_task.date = date
+                t_task.og_name = t[1]
                 t_task.time = time
+                t_task.date = date
                 t_task.size_hint = (None, None) # 1 means use the available hight for the widget
                 t_task.size = [scroll_parent.width/2.4, round(scroll_parent.height/4)]  # 4 divisions
                 
@@ -124,7 +126,8 @@ class MainWindow(BoxLayout):
                 
             else:
                 task = Upcoming() # from main page
-                task.name = t[1]
+                task.og_name = t[1]
+                task.name = t[1].upper()
                 task.time = ' '.join([date,time])
                 task.date = date
                 task.size_hint = [1, None]
@@ -167,18 +170,40 @@ class MainWindow(BoxLayout):
         else:
             return False
 
-    def update_task(self, inst):
-        nt = NewTask()
-        # nt.ids.task_name.text = inst.name
-        # nt.ids.task_time.text = inst.time
-        # nt.ids.task_date.text = inst.date
+    def get_update(self, inst):
+        nt = NewTask()  
+        nt.ids.task_name.text = inst.name
+        nt.ids.task_time.text = inst.time
+        nt.ids.task_date.text = inst.date
         nt.ids.submit_wrapper.clear_widgets()
         submit = Button(text="Update Task", background_normal='', bold= True, color=rgba('#282C34'), background_color=rgba('#F8F9FD'))
-        # submit.bind(on_release=lambda x: self.update_task(nt, inst))
+        submit.bind(on_release=lambda x: self.update_task(nt, inst))
         nt.ids.submit_wrapper.add_widget(submit)
         nt.open()
 
-    
+    def update_task(self, task_data, task):
+        xtask = [
+            task_data.ids.task_name.text,
+            task_data.ids.task_date.text,
+            task_data.ids.task_time.text
+        ]
+        error = None
+        for t in xtask:
+            if len(t) < 3:
+                t.hint_text ='Field required'
+                t.hint_text_color = [1,0,0,1]
+                error = True
+        if error:
+            pass
+        else:
+            xtask = [xtask[0], ' '.join(xtask[1:]), task.og_name]
+            if self.db.update_task(xtask):
+                task.name = task_data.ids.task_name.text
+                task.time = task_data.ids.task_time.text
+                task.date = task_data.ids.task_date.text
+        
+        task_data.dismiss()
+                
     def delete_task(self, task: Today):
         """ delete a task from the today module and also delete it from the database
 
@@ -205,38 +230,42 @@ class MainWindow(BoxLayout):
         error = False
         scroll_parent = self.ids.scroll_parent
         tw = self.ids.today_wrapper
+        uw = self.ids.upcoming
         for t in xtask:
-            if len(t.text) < 1:
+            if len(t.text) < 3:
                 t.hint_text ='Field required'
                 t.hint_text_color = [1,0,0,1]
                 error = True
         if error:
             pass
         else:
-            task= Today()
-            task.name = xtask[0].text
-            task.date = xtask[1].text
-            task.time = xtask[2].text
-            task.size_hint = (None, None)
-            task.size = [scroll_parent.width/2.4, scroll_parent.height-(.1*scroll_parent.height)]
-
-            # add task to db
             date = ' '.join([xtask[1].text, xtask[2].text])
             task_ = (xtask[0].text, date)
-            
-            # only add our task to the view only if it was 
-            # added to the database successfully!
-            if self.db.add_task(task_):
-                tw.add_widget(task)
-            
+
+            if self.clean_date(xtask[1].text):
+                task = Today()
+                task.og_name = xtask[0].text
+                task.name = xtask[0].text.upper()
+                task.time = xtask[2].text
+                task.date = xtask[1].text
+                task.size_hint = (None, None)
+                task.size =  [scroll_parent.width/2.4,scroll_parent.height-(.1*scroll_parent.height)]
+                if self.db.add_task(task_):
+                    tw.add_widget(task)
+            else:
+                task = Upcoming()
+                task.og_name = xtask[0].text
+                task.name = xtask[0].text.upper()
+                task.time = xtask[2].text
+                task.date = xtask[1].text
+                task.size_hint = [1, None]
+                task.height = dp(100)
+                if self.db.add_task(task_):
+                    uw.add_widget(task)
+
+            #add task to db
             mv.dismiss()
 
-            # check if we have enough task to show 
-            # if len(tw.children) > 1:
-            #     for child in tw.children:
-            #         if type(child) == NewButton:
-            #             tw.remove_widget(child)
-            #             break
 
     def auth_user(self, username,  password):
         """

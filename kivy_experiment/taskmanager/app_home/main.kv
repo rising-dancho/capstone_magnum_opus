@@ -532,13 +532,13 @@
                 background_color: [1,1,1,0]
                 canvas.before:
                     Color:
-                        rgb: utils.get_color_from_hex("#ffffff")
+                        rgb: rgba("#ffffff")
                     Rectangle:
                         pos: self.pos
                         size: [self.size[0], 1]
             FlatButton:
                 id: task_time
-                text: '00:00'
+                text: '00:00:00'
                 size_hint_x: .3
                 on_release: root.get_time()
         Widget:
@@ -550,64 +550,13 @@
                 text: 'Submit'
                 bold: True
                 on_release: app.root.add_task(root, (task_name,task_date,task_time))
-                color: utils.get_color_from_hex("#282C34")
+                color: rgba("#282C34")
                 canvas.before:
                     Color:
                         rgba: rgba('#FFC444')
                     RoundedRectangle:
                         pos: self.pos
                         size: self.size
-
-<Upcoming>:
-    orientation: 'vertical'
-    padding: [30, 8, 8, 8]
-    canvas.before:
-        Color:
-            rgba: rgba('#ffffff')
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [8]
-        Color:
-            rgba: rgba('#FFC444')
-        RoundedRectangle:
-            pos: self.pos
-            size: [self.size[0]-(.975*self.size[0]), self.size[1]]
-            radius: [5,0,0,5] #top left, top right, bottom right, bottom left
-    Label:
-        text: root.name
-        bold: True
-        text_size: self.size
-        valign: 'middle'
-        color: rgba('#282C34')
-        size_hint_y: .2
-        font_size: mtx.sp(18)
-    Label:
-        text: root.time
-        bold: True
-        text_size: self.size
-        valign: 'middle'
-        color: rgba('#282C34')
-        size_hint_y: .2
-        font_size: mtx.sp(14)
-    AnchorLayout:
-        size_hint_y: .6
-        anchor_x: 'right'
-        anchor_y: 'bottom'
-        BoxLayout:
-            size_hint_x: .3
-            FlatButton:
-                text: icon('zmdi-refresh')
-                font_size: mtx.sp(18)
-                markup: True
-                on_release: app.root.update_task(root)
-                color: rgba('#282C34')
-            FlatButton:
-                text: icon('zmdi-delete')
-                font_size: mtx.sp(18)
-                markup: True
-                on_release: app.root.delete_task(root)
-                color: rgba('#282C34')
     
 
 <Today>:
@@ -659,17 +608,65 @@
                 text: icon('zmdi-refresh')
                 markup: True
                 font_size: mtx.sp(20)
-                size_hint_x: .2
                 color: rgba('#282C34')
-                on_release: app.root.update_task(root)
+                on_release: app.root.get_update(root)
             FlatButton:
                 text: icon('zmdi-delete')
                 markup: True
                 font_size: mtx.sp(20)
-                size_hint_x: .2
                 color: rgba('#282C34')
                 on_release: app.root.delete_task(root)
 
+<Upcoming>:
+    orientation: 'vertical'
+    padding: [30, 8, 8, 8]
+    canvas.before:
+        Color:
+            rgba: rgba('#ffffff')
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [8]
+        Color:
+            rgba: rgba('#FFC444')
+        RoundedRectangle:
+            pos: self.pos
+            size: [self.size[0]-(.975*self.size[0]), self.size[1]]
+            radius: [5,0,0,5] #top left, top right, bottom right, bottom left
+    Label:
+        text: root.name
+        bold: True
+        text_size: self.size
+        valign: 'middle'
+        color: rgba('#282C34')
+        size_hint_y: .2
+        font_size: mtx.sp(18)
+    Label:
+        text: root.time
+        bold: True
+        text_size: self.size
+        valign: 'middle'
+        color: rgba('#282C34')
+        size_hint_y: .2
+        font_size: mtx.sp(14)
+    AnchorLayout:
+        size_hint_y: .6
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        BoxLayout:
+            size_hint_x: .4
+            FlatButton:
+                text: icon('zmdi-refresh')
+                font_size: mtx.sp(18)
+                markup: True
+                on_release: app.root.get_update(root)
+                color: rgba('#282C34')
+            FlatButton:
+                text: icon('zmdi-delete')
+                font_size: mtx.sp(18)
+                markup: True
+                on_release: app.root.delete_task(root)
+                color: rgba('#282C34')
 
 <NewButton>:
     canvas.before:
