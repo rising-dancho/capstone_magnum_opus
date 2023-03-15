@@ -151,20 +151,20 @@ class MainWindow(BoxLayout):
         #             break
             
             
+
     
     def clean_date(self, date: str):
-        # print(date)
         today = datetime.today()
+        print('today',today)
         _date = date.split('/')
         if len(_date) < 3:
             _date = date.split('-')
         date_ = [int(x) for x in reversed(_date)]
 
         task_date = datetime(date_[0], date_[1], date_[2])
+        print('task_date',task_date)
 
         x = abs((today - task_date).days)
-        # print(x)
-        
         if x == 0:
             return True
         else:
