@@ -1,3 +1,0 @@
-from .platforms.MobileScreen.mobile_screen import LoginMobileScreenView
-from .platforms.TabletScreen.tablet_screen import LoginTabletScreenView
-from .platforms.DesktopScreen.desktop_screen import LoginDesktopScreenView
