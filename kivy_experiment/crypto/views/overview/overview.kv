@@ -1,0 +1,62 @@
+<Overview>:
+    orientation: "vertical"
+    spacing: dp(12)
+    BoxLayout:
+        size_hint_y: .3
+        padding: [dp(12)] # left and right : x - axis
+        orientation: "vertical"
+        Text:
+            text: "Assets Value"
+            color: app.colors.secondary
+            font_size: app.fonts.size.h4
+            halign: "center"
+            valign: "bottom"
+        Text:
+            text: "$ 54,269.91"
+            color: app.colors.white
+            font_size: app.fonts.size.extra
+            font_name: app.fonts.heading
+            halign: "center"
+        Text:
+            text: "approx. 1.4BTC"
+            color: app.colors.tertiary_light
+            font_size: app.fonts.size.h5
+            halign: "center"
+            size_hint_y: None
+            height: dp(18)
+        Text:
+            text: "⌃ 2.4%"
+            color: app.colors.success
+            halign: "center"
+            valign: "top"
+            font_size: app.fonts.size.h5
+            size_hint_y: None
+            height: dp(18)
+        AnchorLayout:
+            RoundedButton:
+                text:'refresh'
+                font_size: app.fonts.size.h5
+                font_name: app.fonts.heading
+                size_hint: [.25, None] # x, y
+                color: app.colors.bg
+                bcolor: app.colors.white
+                height: dp(28)
+                radius: [self.height/2]
+  
+    BoxLayout:
+        size_hint_y: .3
+        padding: [dp(12)] # left and right : x - axis
+
+    BoxLayout:
+        size_hint_y: .4
+        padding: [dp(12)] # left and right : x - axis
+        canvas.before:
+            Color: 
+                rgba: rgba("#32a852")
+            Rectangle:
+                size: self.size
+                pos:self.pos
+       
+
+
+        
