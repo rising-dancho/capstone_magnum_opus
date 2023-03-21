@@ -1,5 +1,5 @@
 
-<Signup>:
+<Signin>:
     orientation: 'vertical'
     spacing: dp(12)
     padding: dp(12)
@@ -7,7 +7,7 @@
         orientation:'vertical'
         size_hint_y: .3
         Text:
-            text: "Create Account"
+            text: "Hello There!"
             color: app.colors.white
             font_size: app.fonts.size.extra
             font_name: app.fonts.heading
@@ -15,7 +15,7 @@
             valign: "bottom"
             
         Text:
-            text: "Fill the form below"
+            text: "Signin below"
             color: app.colors.white
             font_size: app.fonts.size.h5
             font_name: app.fonts.body
@@ -49,7 +49,7 @@
             size_hint_y: None
             height: dp(1.5)
         RoundedButton:
-            text: "Sign me up"
+            text: "Sign in"
             padding: [dp(8), 0]
             color: app.colors.white
             font_name: app.fonts.subheading
@@ -58,13 +58,13 @@
             size_hint_y: None
             height: dp(42)
         FlatButton:
-            text: "Sign in instead"
+            text: "Sign up instead"
             color: app.colors.primary
             font_name: app.fonts.subheading
             size_hint_y: None
             height: dp(42)
             valign: "top" 
-            on_release: app.root.ids.scrn_mngr.current = "scrn_signin"
+            on_release: app.root.ids.scrn_mngr.current = "scrn_signup"
             
         Widget:
             # size_hint_y: .3

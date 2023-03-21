@@ -1,17 +1,40 @@
 
 #: import Home views.home.Home
+#: import Signup views.signup.Signup
+#: import Signin views.signin.Signin
+
+#: import BackBox widgets.box.BackBox
+#: import RoundedButton widgets.buttons.RoundedButton
+#: import FlatButton widgets.buttons.FlatButton
+#: import IconButton widgets.buttons.IconButton
+#: import BlankTextField widgets.textfields.BlankTextField
+#: import Text widgets.labels.Text
+
+#: import SwapTransition kivy.uix.screenmanager.SwapTransition
+#: import icon kivy.garden.iconfonts.icon
+
 
 <MainWindow>:
     orientation: 'vertical'
     canvas.before:
         Color:
-            rgba: rgba('#ffffff')
+            rgba: app.colors.bg
         Rectangle:
             pos: self.pos
             size: self.size
     ScreenManager:
         id: scrn_mngr
+        transition: SwapTransition()
         Screen:
             name: 'scrn_home'
             Home:
                 id: home
+        Screen:
+            name: 'scrn_signin'
+            Signin:
+                id: signin
+        Screen:
+            name: 'scrn_signup'
+            Signup:
+                id: signup
+      

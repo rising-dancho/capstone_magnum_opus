@@ -9,7 +9,7 @@ class MainApp(App):
     colors = QueryDict()
     colors.bg = rgba("#0A051A")
     colors.primary = rgba("#4F1CE1")
-    colors.secondary = rgba(255, 255, 255, 0.14)
+    colors.secondary = [1,1,1, .1]
     colors.success = rgba("#15C097")
     colors.warning = rgba("#F2C94C")
     colors.danger = rgba("#EB5757")
@@ -28,7 +28,7 @@ class MainApp(App):
     fonts.size.h4 = dp(16)
     fonts.size.h5 = dp(14)
     fonts.size.h6 = dp(12)
-    fonts.size.extra = dp(42)
+    fonts.size.extra = dp(32)
 
     fonts.heading = 'assets/fonts/Inter/Inter-Bold.otf'
     fonts.subheading = 'assets/fonts/Inter/Inter-Regular.otf'
