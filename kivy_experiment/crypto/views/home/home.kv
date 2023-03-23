@@ -1,37 +1,39 @@
+#: import Overview views.overview.Overview
+
 <Home>:
 	orientation: 'vertical'
 	ScreenManager:
 		id: scrn_mngr
 		Screen:
-			name: "scrn_overview"
-			BackBox:
+			name: 'scrn_overview'
+			Overview:
 				id: overview
 		Screen:
-			name: "scrn_coins"
-			Overview:
+			name: 'scrn_coins'
+			BackBox:
 				bcolor: app.colors.danger
 		Screen:
-			name: "scrn_exchanges"
+			name: 'scrn_exchanges'
 			BackBox:
 				bcolor: app.colors.success
 	AnchorLayout:
 		size_hint_y: None
 		height: dp(54)
 		BoxLayout:
-			size_hint_x: .5 # half of the available width
+			size_hint_x: .5
 			spacing: dp(12)
-			padding: [dp(8), dp(4)] # x,y 
+			padding: [dp(8), dp(4)]
 			TabIcon:
 				text: icon("icon-dollar-sign")
+				on_release: 
+					self.state = "down"
+					scrn_mngr.current = "scrn_coins"
+			TabIcon:
+				text: icon("icon-home")
 				state: "down"
 				on_release: 
 					self.state = "down"
 					scrn_mngr.current = "scrn_overview"
-			TabIcon:
-				text: icon("icon-home")
-				on_release: 
-					self.state = "down"
-					scrn_mngr.current = "scrn_coins"
 			TabIcon:
 				text: icon("icon-repeat")
 				on_release: 
@@ -39,19 +41,20 @@
 					scrn_mngr.current = "scrn_exchanges"
 
 <TabIcon@ToggleButton>:
-	group: 'tabs'
+	background_color: [0,0,0,0]
+	background_normal: ""
+	background_disabled: ""
+	background_down: ""
+	size_hint: [None, 1]
 	font_size: app.fonts.size.h2
-	background_color: [0,0,0,0] # transparent
-	background_normal: "" # removing image of behind the ToggleButton
-	background_disabled: "" # empty image for disabled
-	background_down: "" # empty image for toggle press down
-	size_hint: [None, 1] # width and height; it's going into the Anchorlayout.. it already has height of 54 dp.. so height not set to something else
-	width:self.height # set width equal to the height means this button is always going to be a perfect square
+	group: 'tabs'
+	width: self.height
 	markup: True
 	color: app.colors.white if self.state == 'down' else app.colors.primary
 	canvas.before:
 		Color:
-			rgba: app.colors.primary if self.state == 'down' else  [0,0,0,0] # if press down use primary color else use transparent
+			rgba: app.colors.primary if self.state == 'down' else [0,0,0,0]
 		Ellipse:
 			pos: self.pos
 			size: self.size
+	

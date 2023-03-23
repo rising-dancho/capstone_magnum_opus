@@ -1,33 +1,31 @@
 
 <Signin>:
-    orientation: 'vertical'
+    orientation: "vertical"
     spacing: dp(12)
     padding: dp(12)
     BackBox:
-        orientation:'vertical'
-        size_hint_y: .3
+        orientation: "vertical"
+        size_hint_y: .35
         Text:
-            text: "Hello There!"
+            text: "Hello there"
             color: app.colors.white
             font_size: app.fonts.size.extra
             font_name: app.fonts.heading
-            halign: "center"
+            halign: 'center'
             valign: "bottom"
-            
         Text:
-            text: "Signin below"
+            text: "Please login below"
             color: app.colors.white
             font_size: app.fonts.size.h5
             font_name: app.fonts.body
-            halign: "center"
+            halign: 'center'
             valign: "top"
-    
     BackBox:
-        orientation:'vertical'
-        size_hint_y: .7
+        orientation: "vertical"
+        size_hint_y: .65
         spacing: dp(12)
         BackBox:
-            radius: [dp(4)]
+            radius: [dp(8)]
             padding: [dp(8), 0]
             size_hint_y: None
             height: dp(42)
@@ -36,37 +34,33 @@
                 id: username
                 hint_text: "Username"
         BackBox:
-            radius: [dp(4)]
-            padding: [dp(8), 0]
+            radius: [dp(8)]
             size_hint_y: None
             height: dp(42)
+            padding: [dp(8), 0]
             bcolor: app.colors.secondary
             BlankTextField:
                 id: password
-                password: True
                 hint_text: "Password"
+                password: True
         Widget:
             size_hint_y: None
-            height: dp(1.5)
+            height: dp(42)
         RoundedButton:
-            text: "Sign in"
-            padding: [dp(8), 0]
+            text: "Log in"
             color: app.colors.white
             font_name: app.fonts.subheading
-            radius: [dp(4)]
+            radius: [dp(8)]
             bcolor: app.colors.primary
             size_hint_y: None
             height: dp(42)
         FlatButton:
-            text: "Sign up instead"
+            text: "Signup instead"
             color: app.colors.primary
-            font_name: app.fonts.subheading
+            font_name: app.fonts.body
+            radius: [dp(8)]
             size_hint_y: None
             height: dp(42)
-            valign: "top" 
-            on_release: app.root.ids.scrn_mngr.current = "scrn_signup"
-            
+            valign: "top"
+            on_release: app.root.ids.scrn_mngr.current = 'scrn_signup'
         Widget:
-            # size_hint_y: .3
-            # bcolor: app.colors.success
-        
