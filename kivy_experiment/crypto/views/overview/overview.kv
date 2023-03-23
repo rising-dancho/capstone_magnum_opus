@@ -1,122 +1,132 @@
 #: import Window kivy.core.window.Window
 
+
 <Overview>:
-    orientation: 'vertical'
+    orientation: "vertical"
     spacing: dp(12)
     BoxLayout:
-        size_hint_y: .3
-        padding: [dp(12), dp(4)]
-        orientation: 'vertical'
+        size_hint_y: .35
+        padding: [dp(12)] # left and right : x - axis
+        orientation: "vertical"
         Text:
-            text: 'Assets Value'
+            text: "Assets Value"
             color: app.colors.secondary
             font_size: app.fonts.size.h4
             halign: "center"
-            valign: 'bottom'
+            valign: "bottom"
         Text:
-            text: '$ 54,269.91'
+            text: "$ 54,269.91"
             color: app.colors.white
             font_size: app.fonts.size.extra
             font_name: app.fonts.heading
             halign: "center"
         Text:
-            text: 'approx 1.4BTC'
-            color: app.colors.white
+            text: "approx. 1.4BTC"
+            color: app.colors.tertiary_light
             font_size: app.fonts.size.h5
             halign: "center"
             size_hint_y: None
             height: dp(18)
         Text:
-            text: '+2.4%'
+            text: "⌃ 2.4%"
             color: app.colors.success
-            font_size: app.fonts.size.h5
             halign: "center"
+            valign: "top"
+            font_size: app.fonts.size.h5
             size_hint_y: None
             height: dp(18)
         AnchorLayout:
             RoundedButton:
-                text: "refresh"
+                text:'refresh'
                 font_size: app.fonts.size.h5
-                size_hint: [.25, None]
-                height: dp(28)
-                bcolor: app.colors.white
+                font_name: app.fonts.heading
+                size_hint: [.25, None] # x, y
                 color: app.colors.bg
-                font_name: app.fonts.subheading
+                bcolor: app.colors.white
+                height: dp(28)
                 radius: [self.height/2]
+  
     BoxLayout:
         size_hint_y: .35
-        padding: [dp(12), dp(4)]
+        padding: [dp(12), dp(4)] # left and right : x - axis
         spacing: dp(8)
-        orientation: 'vertical'
+        orientation:'vertical'
         Text:
             text: "My Assets"
             color: app.colors.white
             font_name: app.fonts.body
             font_size: app.fonts.size.h4
-            size_hint_y: None
+            size_hint_y: None 
             height: dp(18)
-        BoxLayout:
-            ScrollView:
-                do_scroll: [True, False]
-                size_hint: [None, None]
-                bar_inactive_color: [0,0,0,0]
-                bar_active_color: [0,0,0,0]
-                size: self.parent.size
-                GridLayout:
-                    id: gl_my_assets
-                    rows: 1
-                    size_hint: [None, None]
-                    size: self.minimum_size
-                    spacing: sp(12)
+
+        ScrollView:
+            do_scroll: [True, False] # horizontal: True, vertical: False  
+            size_hint: [None,None]
+            bar_inactive_color: [0,0,0,0]
+            bar_active_color: [0,0,0,0]
+            size: self.parent.size
+            GridLayout:
+                id: gl_assets
+                rows: 1
+                size_hint:[None,None]
+                size: self.minimum_size
+                spacing: dp(12)
+
     BoxLayout:
-        size_hint_y: .35
-        padding: [dp(12), dp(4)]
-        spacing: dp(8)
+        size_hint_y: .4
+        padding: [dp(12), dp(4)] # left and right : x - axis
         orientation: 'vertical'
+        spacing: dp(8)
         Text:
             text: "My Watchlist"
             color: app.colors.white
             font_name: app.fonts.body
             font_size: app.fonts.size.h4
             size_hint_y: None
-            height: dp(18)
+            height: dp(18)  
         BoxLayout:
             ScrollView:
-                do_scroll: [False, True]
+                do_scroll: [False, True] # horizontal: False, vertical: True
                 size_hint_y: None
-                height: self.parent.height
-                bar_active_color: [0,0,0,0]
                 bar_inactive_color: [0,0,0,0]
-                GridLayout:
+                bar_active_color: [0,0,0,0]
+                height: self.parent.height
+                GridLayout: 
                     id: gl_watchlist
                     cols: 1
-                    spacing: dp(4)
+                    spacing: dp(6)
                     size_hint_y: None
-                    height: self.minimum_height
+                    hegiht: self.minimum_height
+       
 
 <Asset>:
     size_hint: [None, None]
     width: Window.size[0]*.38
     height: dp(240)
-    orientation: 'vertical'
+    orientation: "vertical"
     spacing: dp(8)
-    padding: dp(4)
+    padding: dp(6)
     canvas.before:
         Color:
             rgba: app.colors.secondary
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [dp(12)]
+            radius: [dp(8)]
     BoxLayout:
         size_hint_y: None
         height: dp(42)
-        
+        # canvas.before:
+        #     Color:
+        #         rgba: rgba("#8B314B")
+        #     Rectangle:
+        #         pos:self.pos
+        #         size: self.size
         AnchorLayout:
             size_hint_x: None
             width: dp(42)
             BoxLayout:
-                size_hint: [None, None]
+                size_hint: [None,None]
                 size: [dp(42), dp(42)]
                 padding: dp(4)
                 RelativeLayout:
@@ -130,23 +140,23 @@
                                 rgba: [1,1,1,1]
                             Ellipse:
                                 size: self.size[0], self.size[1]
-                                pos: self.pos
-                                texture: proxy.texture
-                    
+                                pos:  self.pos
+                                texture: proxy.texture       
         BoxLayout:
             size_hint_x: .5
             Text:
-                text: root.text
+                text: root.text   
                 font_name: app.fonts.heading
-                color: app.colors.white
+                color: app.colors.white 
+
         BoxLayout:
             size_hint_x: .5
             Text:
                 size_hint_x: None
                 width: dp(48)
-                text: "+%s"%str(root.price_change)
-                halign: 'left'
+                text: "+%s"%str(root.price_change)  
                 font_name: app.fonts.subheading
+                halign: "left"
                 font_size: sp(10)
                 color: app.colors.success
     BoxLayout:
@@ -154,23 +164,25 @@
             id: graph
             xmax: len(root.chart_data)
             xmin: 0
-            ymin: 0.1
             ymax: 7
+            ymin: 0.1
             draw_border: False
+
     BoxLayout:
         size_hint_y: None
         height: dp(42)
-        orientation: 'vertical'
+        orientation: "vertical"
         Text:
             text: "$%s"%str(root.price)
-            font_name: app.fonts.heading
-            color: app.colors.white
+            font_name: app.fonts.subheading
+            color: app.colors.white 
         Text:
             text: "%s owned"%str(root.owned)
             font_name: app.fonts.body
             color: app.colors.tertiary_light
 
-<ListTile>:
+
+<Watchlist>:
     size_hint_y: None
     height: dp(54)
     padding: dp(8)
@@ -181,9 +193,10 @@
             pos: self.pos
             size: self.size
             radius: [dp(8)]
+        
     BoxLayout:
         size_hint_x: None
-        width: self.height
+        width: self.height # width = height so to make it a perfect square
         padding: dp(4)
         RelativeLayout:
             AsyncImage:
@@ -196,30 +209,49 @@
                         rgba: [1,1,1,1]
                     Ellipse:
                         size: self.size[0], self.size[1]
-                        pos: self.pos
-                        texture: proxy.texture
-                
+                        pos:  self.pos
+                        texture: proxy.texture       
+
     BoxLayout:
         size_hint_x: .45
         Text:
-            text: root.text
+            text: root.text   
             font_name: app.fonts.subheading
-            color: app.colors.white
+            color: app.colors.white 
+
     BoxLayout:
-        size_hint_x: .55
+        size_hint_x: .45
         Text:
-            text: "$%s"%str(root.price)
+            text: "$%s"%str(root.price)  
             font_name: app.fonts.subheading
-            halign: 'right'
-            color: app.colors.white
             font_size: app.fonts.size.h5
+            halign: "right"
+            color: app.colors.white 
         Text:
             size_hint_x: None
             width: dp(48)
-            text: "+%s"%str(root.price_change)
-            halign: 'right'
+            text: "+%s"%str(root.price_change)  
             font_name: app.fonts.subheading
             font_size: app.fonts.size.h6
+            halign: "right"
             color: app.colors.success
-        
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
