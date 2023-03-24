@@ -1,47 +1,50 @@
 #: import Overview views.overview.Overview
-
 <Home>:
-	orientation: 'vertical'
-	ScreenManager:
-		id: scrn_mngr
-		Screen:
-			name: "scrn_overview"
-			Overview:
-				id: overview
-		Screen:
-			name: "scrn_coins"
-			BackBox:
-				bcolor: app.colors.warning
-				
-		Screen:
-			name: "scrn_exchanges"
-			BackBox:
-				bcolor: app.colors.success
-	
-	# Bottom Navigation
-	AnchorLayout:
-		anchor_x: 'center'
-		anchor_y: 'center'
-		size_hint_y: None
-		height: dp(54)
-		BoxLayout:
-			size_hint_x: .5 # half of the available width
-			spacing: dp(12)
-			padding: [dp(8), dp(4)] # x,y 
+    orientation: 'vertical'
+    ScreenManager:
+        id: scrn_mngr
+        Screen:
+            name: "scrn_overview"
+            Overview:
+                id: overview
+        Screen:
+            name: "scrn_coins"
+            BackBox:
+                bcolor: app.colors.warning
+                
+        Screen:
+            name: "scrn_exchanges"
+            BackBox:
+                bcolor: app.colors.success
+    
+    # Bottom Navigation
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        size_hint_y: None
+        height: dp(54)
+        BoxLayout:
+            size_hint_x: None
+            width: dp(96 * 3 + 12 * 2) # 96 is the width of each TabIcon widget and 12 is the spacing between them
+            spacing: dp(12)
+            padding: [dp(8), dp(4)] # x,y 
+            Widget:
+                size_hint_x: 1.0 # take up all the remaining horizontal space after the TabIcons are added to the BoxLayout.
 			TabIcon:
-				text: icon("icon-dollar-sign")
-				on_release: 
-					scrn_mngr.current = "scrn_coins"
-			TabIcon:
-				text: icon("icon-home")
-				state: "down"
-				on_release: 
-					
-					scrn_mngr.current = "scrn_overview"
-			TabIcon:
-				text: icon("icon-repeat")
-				on_release: 
-					scrn_mngr.current = "scrn_exchanges"
+                text: icon("icon-dollar-sign")
+                on_release: 
+                    scrn_mngr.current = "scrn_coins"
+            TabIcon:
+                text: icon("icon-home")
+                state: "down"
+                on_release: 
+                    scrn_mngr.current = "scrn_overview"
+            TabIcon:
+                text: icon("icon-repeat")
+                on_release: 
+                    scrn_mngr.current = "scrn_exchanges"
+            Widget:
+                size_hint_x: 1.0 # take up all the remaining horizontal space after the TabIcons are added to the BoxLayout.
 
 <TabIcon@ToggleButton>:
 	group: 'tabs'
