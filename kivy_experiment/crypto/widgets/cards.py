@@ -1,13 +1,18 @@
+import json
+from threading import Thread
 from kivy.app import App
 from kivy.lang import Builder
 
 from kivy.properties import StringProperty,NumericProperty,ListProperty, ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.garden.graph import LinePlot
-from kivy.clock import Clock
+from kivy.clock import Clock, mainthread
 from kivy.metrics import dp, sp
 from kivy.utils import rgba
-import json
+
+
+
+from pycoingecko import CoinGeckoAPI
 
 
 Builder.load_string("""
@@ -157,10 +162,19 @@ class Asset(BoxLayout):
     owned = StringProperty("1 BTC")
     price = NumericProperty(0.0)
     price_change = NumericProperty(0.0)
+
     chart_data = ListProperty([0,.1])
+    
+    daily_prices = ListProperty([0,.1])
+    weekly_prices = ListProperty([0,.1])
+    monthly_prices = ListProperty([0,.1])
+    yearly_prices = ListProperty([0,.1])
+
     data = ObjectProperty()
     def __init__(self, **kw) -> None:
         super().__init__(**kw)
+        self.cg = CoinGeckoAPI()
+
         Clock.schedule_once(self.render, .2)
     
     def render(self, _):
@@ -196,13 +210,28 @@ class Asset(BoxLayout):
     def on_data(self, inst, data):
         # print("DATA: ", data)
         coin_id = data['id']
+        t1 = Thread(target=self.get_points, args=[coin_id] ,daemon=True)
+        t1.start()
 
-    def get_points(self):
-        with open("data.json", "r") as f:
-            data = json.load(f)
+    def get_points(self, coin_id):
+        daily = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=1)
+        print(daily['prices'][0])
 
-            points = [x[1] for x in data['prices'][-60:]]
-            self.chart_data = points
+        points = [x[1] for x in daily['prices'][-60:]]
+        self.chart_data = points
+        self.daily_prices = daily
+
+        t1 = Thread(target=self.get_all_points, args=[coin_id], daemon=True)
+        t1.start() 
+
+    def get_all_points(self, coin_id):
+        weekly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=7)
+        monthly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=30)
+        yearly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=365)
+        
+        self.weekly_prices = weekly
+        self.monthly_prices = monthly
+        self.yearly_prices = yearly
 
 class Watchlist(BoxLayout):
     source = StringProperty("")

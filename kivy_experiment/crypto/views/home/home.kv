@@ -1,4 +1,5 @@
 #: import Overview views.overview.Overview
+#: import Currency views.currencies.Currency
 
 <Home>:
     orientation: 'vertical'
@@ -10,8 +11,8 @@
                 id: overview
         Screen:
             name: "scrn_coins"
-            BackBox:
-                bcolor: app.colors.warning
+            Currency:
+                id: currency
                 
         Screen:
             name: "scrn_exchanges"

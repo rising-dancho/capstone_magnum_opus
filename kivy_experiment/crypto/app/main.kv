@@ -1,7 +1,7 @@
 #: import Home views.home.Home
 #: import Signup views.signup.Signup
 #: import Signin views.signin.Signin
-#: import Currency views.currencies.Currency
+
 
 #: import BackBox widgets.box.BackBox
 #: import RoundedButton widgets.buttons.RoundedButton
@@ -27,10 +27,7 @@
     ScreenManager:
         id: scrn_mngr
         transition: SwapTransition()
-        Screen:
-            name: 'scrn_currencies'
-            Currency:
-                id: currency
+     
         Screen:
             name: 'scrn_home'
             Home:
