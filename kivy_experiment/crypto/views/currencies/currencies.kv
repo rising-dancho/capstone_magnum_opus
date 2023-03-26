@@ -1,0 +1,65 @@
+<Currency>:
+    orientation: "vertical"
+    spacing: dp(12)
+    padding: [0, dp(12), 0, dp(8)] # left, top, right, bottom
+    BoxLayout:
+        orientation:'vertical'
+        spacing: dp(8)
+        padding: [dp(12), dp(4)] # left and top 
+        size_hint_y: .35
+        Text:
+            text: "Popular"
+            color: app.colors.white
+            font_name: app.fonts.body
+            font_size: app.fonts.size.h4
+            size_hint_y: None 
+            height: dp(18)
+        BoxLayout:
+            ScrollView:
+                do_scroll: [True, False] # horizontal: True, vertical: False  
+                size_hint: [None,None]
+                bar_inactive_color: [0,0,0,0]
+                bar_active_color: [0,0,0,0]
+                size: self.parent.size
+                GridLayout:
+                    id: gl_popular
+                    rows: 1
+                    size_hint:[None,None]
+                    size: self.minimum_size
+                    spacing: dp(12)
+
+    BoxLayout:
+        size_hint_y: .65
+        orientation: 'vertical'
+        padding: [dp(12), dp(4)] # left and top 
+        spacing: dp(8)
+        BoxLayout:
+            size_hint_y: None
+            height: dp(18)  
+            Text:
+                text: "All Currencies"
+                color: app.colors.white
+                font_name: app.fonts.body
+                font_size: app.fonts.size.h4
+
+            FlatButton:
+                text: "refresh"
+                underline: True
+                color: app.colors.white
+                font_name: app.fonts.body
+                font_size: app.fonts.size.h5
+                size_hint_x: .3 # sets the horizontal size of this button
+
+        BoxLayout:
+            ScrollView:
+                do_scroll: [False, True] # horizontal: False, vertical: True
+                size_hint_y: None
+                bar_inactive_color: [0,0,0,0]
+                bar_active_color: [0,0,0,0]
+                height: self.parent.height
+                GridLayout: 
+                    id: gl_currencies
+                    cols: 1
+                    spacing: dp(6)
+                    size_hint_y: None
+                    hegiht: self.minimum_height

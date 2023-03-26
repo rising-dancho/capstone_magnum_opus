@@ -13,6 +13,8 @@ from kivy.clock import Clock, mainthread
 from threading import Thread
 import json
 
+from widgets.cards import Watchlist, Asset
+
 Builder.load_file('views/overview/overview.kv')
 class Overview(BoxLayout):
     
@@ -130,59 +132,3 @@ class Overview(BoxLayout):
         ]
         return assets
 
-class Asset(BoxLayout):
-    source = StringProperty("")
-    text = StringProperty("")
-    owned = StringProperty("1 BTC")
-    price = NumericProperty(0.0)
-    price_change = NumericProperty(0.0)
-    chart_data = ListProperty([0,.1])
-    def __init__(self, **kw) -> None:
-        super().__init__(**kw)
-        Clock.schedule_once(self.render, .2)
-    
-    def render(self, _):
-        graph = self.ids.graph
-        plot = LinePlot()
-        plot.line_width = dp(1.2)
-        plot.color = App.get_running_app().colors.tertiary_light
-
-        graph.add_plot(plot)
-        self.get_points()
-    
-    def on_chart_data(self, inst, prices):
-        graph = self.ids.graph
-        plots = graph.plots
-
-        if len(plots) == 0:
-            return
-
-        points = []
-        ymax = 0
-        ymin = min(prices)
-
-        for i, p in enumerate(prices): 
-            pt = (i+1, p)
-            points.append(pt)
-
-            if p > ymax:
-                ymax = p
-        
-        graph.ymax = ymax
-        graph.ymin = ymin
-        plots[0].points = points
-
-    def get_points(self):
-        with open("data.json", "r") as f:
-            data = json.load(f)
-
-            points = [x[1] for x in data['prices'][-60:]]
-            self.chart_data = points
-
-class Watchlist(BoxLayout):
-    source = StringProperty("")
-    text = StringProperty("")
-    price = NumericProperty(0.0)
-    price_change = NumericProperty(0.0)
-    def __init__(self, **kw) -> None:
-        super().__init__(**kw)

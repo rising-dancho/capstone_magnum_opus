@@ -1,4 +1,5 @@
 #: import Overview views.overview.Overview
+
 <Home>:
     orientation: 'vertical'
     ScreenManager:
@@ -28,9 +29,9 @@
             width: dp(96 * 3 + 12 * 2) # 96 is the width of each TabIcon widget and 12 is the spacing between them
             spacing: dp(12)
             padding: [dp(8), dp(4)] # x,y 
-            Widget:
+			Widget:
                 size_hint_x: 1.0 # take up all the remaining horizontal space after the TabIcons are added to the BoxLayout.
-			TabIcon:
+            TabIcon:
                 text: icon("icon-dollar-sign")
                 on_release: 
                     scrn_mngr.current = "scrn_coins"
@@ -47,19 +48,20 @@
                 size_hint_x: 1.0 # take up all the remaining horizontal space after the TabIcons are added to the BoxLayout.
 
 <TabIcon@ToggleButton>:
-	group: 'tabs'
+	background_color: [0,0,0,0]
+	background_normal: ""
+	background_disabled: ""
+	background_down: ""
+	size_hint: [None, 1]
 	font_size: app.fonts.size.h2
-	background_color: [0,0,0,0] # transparent
-	background_normal: "" # removing image of behind the ToggleButton
-	background_disabled: "" # empty image for disabled
-	background_down: "" # empty image for toggle press down
-	size_hint: [None, 1] # width and height; it's going into the Anchorlayout.. it already has height of 54 dp.. so height not set to something else
-	width:self.height # set width equal to the height means this button is always going to be a perfect square
+	group: 'tabs'
+	width: self.height
 	markup: True
 	color: app.colors.white if self.state == 'down' else app.colors.primary
 	canvas.before:
 		Color:
-			rgba: app.colors.primary if self.state == 'down' else  [0,0,0,0] # if press down use primary color else use transparent
+			rgba: app.colors.primary if self.state == 'down' else [0,0,0,0]
 		Ellipse:
 			pos: self.pos
 			size: self.size
+	
