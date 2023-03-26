@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.lang import Builder
 
-from kivy.properties import StringProperty,NumericProperty,ListProperty
+from kivy.properties import StringProperty,NumericProperty,ListProperty, ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.garden.graph import LinePlot
 from kivy.clock import Clock
@@ -158,6 +158,7 @@ class Asset(BoxLayout):
     price = NumericProperty(0.0)
     price_change = NumericProperty(0.0)
     chart_data = ListProperty([0,.1])
+    data = ObjectProperty()
     def __init__(self, **kw) -> None:
         super().__init__(**kw)
         Clock.schedule_once(self.render, .2)
@@ -169,7 +170,6 @@ class Asset(BoxLayout):
         plot.color = App.get_running_app().colors.tertiary_light
 
         graph.add_plot(plot)
-        self.get_points()
     
     def on_chart_data(self, inst, prices):
         graph = self.ids.graph
@@ -192,6 +192,10 @@ class Asset(BoxLayout):
         graph.ymax = ymax
         graph.ymin = ymin
         plots[0].points = points
+    
+    def on_data(self, inst, data):
+        # print("DATA: ", data)
+        coin_id = data['id']
 
     def get_points(self):
         with open("data.json", "r") as f:
