@@ -5,6 +5,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.metrics import dp, sp
 from kivy.utils import rgba, QueryDict
 from kivy.clock import Clock, mainthread
+from kivy.core.window import Window
 
 from pycoingecko import CoinGeckoAPI
 from threading import Thread
@@ -48,6 +49,7 @@ class Currency(BoxLayout):
             a.data = v
             grid.add_widget(a)
 
+        for v in mkts:
             if str(v['symbol']) in self.popular:
                 a = Asset()
                 a.text = str(v['symbol']).upper()
@@ -55,5 +57,5 @@ class Currency(BoxLayout):
                 a.price = round(v['current_price'], 2) 
                 a.price_change = v['market_cap_change_percentage_24h']
                 a.data = v
-                a.height = popular.parent.parent.height *.96
+                a.height = Window.height*.2
                 popular.add_widget(a)

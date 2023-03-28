@@ -73,9 +73,9 @@ Builder.load_string("""
         BoxLayout:
             size_hint_x: .5
             Text:
+                id: price_change
                 size_hint_x: None
                 width: dp(48)
-                text: "+%s"%str(root.price_change)#[:4]
                 font_name: app.fonts.subheading
                 halign: "left"
                 font_size: sp(10)
@@ -149,9 +149,9 @@ Builder.load_string("""
             halign: "right"
             color: app.colors.white 
         Text:
+            id: price_change
             size_hint_x: None
             width: dp(48)
-            text: "+%s"%str(root.price_change)  
             font_name: app.fonts.subheading
             font_size: app.fonts.size.h6
             halign: "right"
@@ -178,25 +178,65 @@ class Card(ButtonBehavior, BoxLayout):
     def __init__(self, **kw) -> None:
         super().__init__(**kw)
         self.cg = CoinGeckoAPI()    
+        self.from_view = False
         self.bind(on_release=self.view_asset)
 
-    def view_asset(self, *args):
-        av = AssetView()
-        av.open()
+    def on_price_change(self, inst, value):
+        new_price = f"+{value}"
+        new_price = new_price.replace("+-", "-")[:5] 
+        self.ids.price_change.text = new_price + "%"
 
-    def on_data(self, inst, data):
+        if new_price.startswith("-"):
+            self.ids.price_change.color = App.get_running_app().colors.danger
+
+    def view_asset(self, *args):
+        """
+            Required
+            ============================
+            currency = StringProperty("BTC")
+            asset_value = NumericProperty(42342.62)
+            source = StringProperty("")
+            chart_data = ListProperty([0,1])
+            daily_data = ListProperty([0,1])
+            weekly_data = ListProperty([0,1])
+            monthly_data = ListProperty([0,1])
+            yearly_data = ListProperty([0,1])
+        """
+        if len(self.daily_prices) < 2:
+            self.from_view = True
+            self.get_data()
+        else:
+            self.open_view()
+
+    @mainthread
+    def open_view(self):
+        av = AssetView()
+        av.currency = str(self.text)
+        av.asset_value = self.price
+        av.source = self.source
+
+        av.daily_data = self.daily_prices
+        av.weekly_data = self.weekly_prices
+        av.monthly_data = self.monthly_prices
+        av.yearly_data = self.yearly_prices
+        av.data = self.data
+
+        av.open()
+        # av.update_graph()
+        Clock.schedule_once(lambda x: av.update_graph(), .5)
+
+    def get_data(self):
         # print("DATA: ", data)
-        coin_id = data['id']
+        coin_id = self.data['id']
         t1 = Thread(target=self.get_points, args=[coin_id] ,daemon=True)
         t1.start()
 
     def get_points(self, coin_id):
         daily = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=1)
-        print(daily['prices'][0])
 
         points = [x[1] for x in daily['prices'][-60:]]
         self.chart_data = points
-        self.daily_prices = daily
+        self.daily_prices = [x[1] for x in daily['prices']]
 
         t1 = Thread(target=self.get_all_points, args=[coin_id], daemon=True)
         t1.start() 
@@ -206,11 +246,15 @@ class Card(ButtonBehavior, BoxLayout):
         monthly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=30)
         yearly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=365)
         
-        self.weekly_prices = weekly
-        self.monthly_prices = monthly
-        self.yearly_prices = yearly
-          
+        self.weekly_prices = [x[1] for x in weekly['prices']]
+        self.monthly_prices= [x[1] for x in monthly['prices']]
+        self.yearly_prices = [x[1] for x in yearly['prices']]
 
+        if self.from_view:
+            self.open_view()
+            self.from_view = False
+
+          
 class Asset(Card):
     def __init__(self, **kw) -> None:
         super().__init__(**kw)
@@ -224,6 +268,9 @@ class Asset(Card):
         plot.color = App.get_running_app().colors.tertiary_light
 
         graph.add_plot(plot)
+    
+    def on_data(self, *args):
+        self.get_data()
     
     def on_chart_data(self, inst, prices):
         graph = self.ids.graph
@@ -247,12 +294,8 @@ class Asset(Card):
         graph.ymin = ymin
         plots[0].points = points
     
-
-
 class Watchlist(Card):
-    source = StringProperty("")
-    text = StringProperty("")
-    price = NumericProperty(0.0)
-    price_change = NumericProperty(0.0)
     def __init__(self, **kw) -> None:
         super().__init__(**kw)
+
+   
