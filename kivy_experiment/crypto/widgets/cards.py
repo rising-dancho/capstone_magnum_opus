@@ -3,6 +3,9 @@ from threading import Thread
 from kivy.app import App
 from kivy.lang import Builder
 
+from views.assetview import AssetView
+from kivy.uix.behaviors import ButtonBehavior
+
 from kivy.properties import StringProperty,NumericProperty,ListProperty, ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.garden.graph import LinePlot
@@ -156,7 +159,8 @@ Builder.load_string("""
 
 
 """)
-class Asset(BoxLayout):
+
+class Card(ButtonBehavior, BoxLayout):
     source = StringProperty("")
     text = StringProperty("")
     owned = StringProperty("1 BTC")
@@ -173,7 +177,43 @@ class Asset(BoxLayout):
     data = ObjectProperty()
     def __init__(self, **kw) -> None:
         super().__init__(**kw)
-        self.cg = CoinGeckoAPI()
+        self.cg = CoinGeckoAPI()    
+        self.bind(on_release=self.view_asset)
+
+    def view_asset(self, *args):
+        av = AssetView()
+        av.open()
+
+    def on_data(self, inst, data):
+        # print("DATA: ", data)
+        coin_id = data['id']
+        t1 = Thread(target=self.get_points, args=[coin_id] ,daemon=True)
+        t1.start()
+
+    def get_points(self, coin_id):
+        daily = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=1)
+        print(daily['prices'][0])
+
+        points = [x[1] for x in daily['prices'][-60:]]
+        self.chart_data = points
+        self.daily_prices = daily
+
+        t1 = Thread(target=self.get_all_points, args=[coin_id], daemon=True)
+        t1.start() 
+
+    def get_all_points(self, coin_id):
+        weekly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=7)
+        monthly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=30)
+        yearly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=365)
+        
+        self.weekly_prices = weekly
+        self.monthly_prices = monthly
+        self.yearly_prices = yearly
+          
+
+class Asset(Card):
+    def __init__(self, **kw) -> None:
+        super().__init__(**kw)
 
         Clock.schedule_once(self.render, .2)
     
@@ -207,33 +247,9 @@ class Asset(BoxLayout):
         graph.ymin = ymin
         plots[0].points = points
     
-    def on_data(self, inst, data):
-        # print("DATA: ", data)
-        coin_id = data['id']
-        t1 = Thread(target=self.get_points, args=[coin_id] ,daemon=True)
-        t1.start()
 
-    def get_points(self, coin_id):
-        daily = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=1)
-        print(daily['prices'][0])
 
-        points = [x[1] for x in daily['prices'][-60:]]
-        self.chart_data = points
-        self.daily_prices = daily
-
-        t1 = Thread(target=self.get_all_points, args=[coin_id], daemon=True)
-        t1.start() 
-
-    def get_all_points(self, coin_id):
-        weekly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=7)
-        monthly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=30)
-        yearly = self.cg.get_coin_market_chart_by_id(coin_id, vs_currency="usd", days=365)
-        
-        self.weekly_prices = weekly
-        self.monthly_prices = monthly
-        self.yearly_prices = yearly
-
-class Watchlist(BoxLayout):
+class Watchlist(Card):
     source = StringProperty("")
     text = StringProperty("")
     price = NumericProperty(0.0)

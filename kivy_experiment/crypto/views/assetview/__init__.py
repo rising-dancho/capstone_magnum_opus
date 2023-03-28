@@ -1,0 +1,1 @@
+from .assetview import AssetView

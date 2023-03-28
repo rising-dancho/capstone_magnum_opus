@@ -1,0 +1,256 @@
+<AssetView>:
+    background: ""
+    background_color: app.colors.bg
+    BoxLayout:
+        orientation:'vertical'
+        spacing: dp(12)
+        BoxLayout:
+            size_hint_y: None
+            height: dp(32)
+            BoxLayout:
+                padding: dp(8)
+                FlatButton:
+                    text: icon('icon-arrow-left')
+                    font_size: app.fonts.size.h2
+                    markup: True
+                    size_hint_x: None
+                    width: self.height
+                    on_release: root.dismiss()
+                Widget:
+                    size_hint_x: 1.0 # take up all the remaining horizontal space after the TabIcons are added to the BoxLayout.
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: dp(128)
+            Text:
+                text: "Assets Value"
+                font_name: app.fonts.body
+                font_size: app.fonts.size.h6
+                color: app.colors.secondary
+                halign: "center"
+                valign: "bottom"
+                # size_hint_y: None
+                # height: dp(16)
+
+            Text:
+                text: "$%s"%root.asset_value
+                font_name: app.fonts.heading
+                font_size: app.fonts.size.extra
+                color: app.colors.white
+                halign: "center"
+                # size_hint_y: None
+
+            Text:
+                text: "+2.4%"
+                font_name: app.fonts.body
+                color: app.colors.success
+                font_size: app.fonts.size.h6
+                halign: "center"
+                valign: "top"
+                # height: dp(14)
+        
+        BoxLayout:
+            size_hint_y: .4
+            orientation: "vertical"
+            spacing: dp(8)
+            padding: [dp(12), dp(8)]
+            BoxLayout:
+                size_hint_y: None
+                height: dp(32)
+                BoxLayout:
+                    size_hint_x: None
+                    width: self.height # width = height so to make it a perfect square
+                    padding: dp(4)
+                    RelativeLayout:
+                        AsyncImage:
+                            id: proxy
+                            source: root.source
+                            opacity: 0
+                        Widget:
+                            canvas.before:
+                                Color:
+                                    rgba: [1,1,1,1]
+                                Ellipse:
+                                    size: self.size[0], self.size[1]
+                                    pos:  self.pos
+                                    texture: proxy.texture    
+                Text:
+                    text: root.currency
+                    color: app.colors.white
+                    font_name: app.fonts.heading
+                    font_size: app.fonts.size.h2
+                BoxLayout:
+                    GraphToggle:
+                        spacing: dp(10)
+                        padding: dp(4)
+                        text: "1H"
+                        state: "down"
+            Graph:
+                id: graph
+                xmax: len(root.chart_data)
+                xmin: 0
+                ymax: 7
+                ymin: 0.1
+                draw_border: False
+        BoxLayout:
+            size_hint_y: .2
+            orientation: "vertical"
+            spacing: dp(8)
+            BoxLayout:
+                spacing: dp(8)
+                BoxLayout:
+                    orientation:'vertical'
+                    Text:
+                        text: "68,43216"
+                        font_name: app.fonts.subheading
+                        font_size: app.fonts.size.h3
+                        color: app.colors.white
+                        halign: "center"
+                        valign: "bottom"
+                    Text:
+                        text: "Market Cap"
+                        font_name: app.fonts.body
+                        font_size: app.fonts.size.h6
+                        color: app.colors.secondary
+                        halign: "center"
+                        valign: "top"
+
+                BoxLayout:
+                    orientation:'vertical'
+                    Text:
+                        text: "68,43216"
+                        font_name: app.fonts.subheading
+                        font_size: app.fonts.size.h3
+                        color: app.colors.white
+                        halign: "center"
+                        valign: "bottom"
+                    Text:
+                        text: "Market Cap"
+                        font_name: app.fonts.body
+                        font_size: app.fonts.size.h6
+                        color: app.colors.secondary
+                        halign: "center"
+                        valign: "top"
+
+                BoxLayout:
+                    orientation:'vertical'
+                    Text:
+                        text: "68,43216"
+                        font_name: app.fonts.subheading
+                        font_size: app.fonts.size.h3
+                        color: app.colors.white
+                        halign: "center"
+                        valign: "bottom"
+                    Text:
+                        text: "Market Cap"
+                        font_name: app.fonts.body
+                        font_size: app.fonts.size.h6
+                        color: app.colors.secondary
+                        halign: "center"
+                        valign: "top"
+            BoxLayout:
+                spacing: dp(8)
+                BoxLayout:
+                    orientation:'vertical'
+                    Text:
+                        text: "68,43216"
+                        font_name: app.fonts.subheading
+                        font_size: app.fonts.size.h3
+                        color: app.colors.white
+                        halign: "center"
+                        valign: "bottom"
+                    Text:
+                        text: "Market Cap"
+                        font_name: app.fonts.body
+                        font_size: app.fonts.size.h6
+                        color: app.colors.secondary
+                        halign: "center"
+                        valign: "top"
+
+                BoxLayout:
+                    orientation:'vertical'
+                    Text:
+                        text: "68,43216"
+                        font_name: app.fonts.subheading
+                        font_size: app.fonts.size.h3
+                        color: app.colors.white
+                        halign: "center"
+                        valign: "bottom"
+                    Text:
+                        text: "Market Cap"
+                        font_name: app.fonts.body
+                        font_size: app.fonts.size.h6
+                        color: app.colors.secondary
+                        halign: "center"
+                        valign: "top"
+
+                BoxLayout:
+                    orientation:'vertical'
+                    Text:
+                        text: "68,43216"
+                        font_name: app.fonts.subheading
+                        font_size: app.fonts.size.h3
+                        color: app.colors.white
+                        halign: "center"
+                        valign: "bottom"
+                    Text:
+                        text: "Market Cap"
+                        font_name: app.fonts.body
+                        font_size: app.fonts.size.h6
+                        color: app.colors.secondary
+                        halign: "center"
+                        valign: "top"
+       
+        
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(108)
+            padding: [dp(12), dp(8)]
+            spacing: dp(12)
+            orientation: "vertical"
+            BoxLayout:
+                spacing: dp(12)
+                BoxLayout:
+                    padding: dp(1)
+                    canvas.before:
+                        Color:
+                            rgba: app.colors.success
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(8)]     
+                    RoundedButton:
+                        text: "SELL %s"%root.currency
+                        color: app.colors.success
+                        bcolor: app.colors.bg
+                        radius: [dp(8)]    
+
+                RoundedButton:
+                    text: "BUY %s"%root.currency
+                    color: app.colors.white
+                    bcolor: app.colors.success
+                    radius: [dp(8)]  
+
+            BoxLayout:
+                RoundedButton:
+                    text: 'Add to Watchlist'
+                    color: app.colors.white
+                    bcolor: app.colors.primary
+                    radius: [dp(8)]    
+
+
+<GraphToggle@ToggleButton>:
+    background_color: [0,0,0,0]
+    background_normal: ""
+    background_down: ""
+    background_disabled: ""
+    group: "graph-tabs"
+    color: app.colors.white
+    canvas.before:
+        Color:
+            rgba: app.colors.secondary if self.state == "down" else rgba [0,0,0,0]
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [self.height*.1]
