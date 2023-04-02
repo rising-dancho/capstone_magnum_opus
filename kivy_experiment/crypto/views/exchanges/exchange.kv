@@ -1,0 +1,130 @@
+
+
+<Exchange>:
+    orientation: 'vertical' 
+    spacing: dp(12)
+    padding: [0, dp(12), 0, dp(8)]
+    BoxLayout:
+        orientation: "vertical"
+        spacing: dp(8)
+        padding: [dp(12), dp(12), 0, dp(4)]
+        size_hint_y: .3
+        Text:
+            text: "Connected Exchanges"
+            color: app.colors.white
+            font_name: app.fonts.body
+            font_size: app.fonts.size.h4
+            size_hint_y: None
+            height: dp(18)
+        BoxLayout:
+            ScrollView:
+                do_scroll: [True, False]
+                size_hint: [None, None]
+                bar_inactive_color: [0,0,0,0]
+                bar_active_color: [0,0,0,0]
+                size: self.parent.size
+                GridLayout:
+                    id: gl_connected
+                    rows: 1
+                    size_hint: [None, None]
+                    size: self.minimum_size
+                    spacing: sp(12)
+    BoxLayout:
+        size_hint_y: .7
+        padding: [dp(12), dp(4)]
+        spacing: dp(8)
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y: None
+            height: dp(18)
+            Text:
+                text: "All Exchanges"
+                color: app.colors.white
+                font_name: app.fonts.body
+                font_size: app.fonts.size.h4
+        BoxLayout:
+            ScrollView:
+                do_scroll: [False, True]
+                size_hint_y: None
+                height: self.parent.height
+                bar_active_color: [0,0,0,0]
+                bar_inactive_color: [0,0,0,0]
+                GridLayout:
+                    id: gl_exchanges
+                    cols: 1
+                    spacing: dp(8)
+                    size_hint_y: None
+                    height: self.minimum_height
+
+<ConnectedExchange>:
+    size_hint: [None, None]
+    width: Window.size[0]*.38
+    height: Window.size[1]*.2
+    orientation: 'vertical'
+    spacing: dp(8)
+    padding: dp(4)
+    canvas.before:
+        Color:
+            rgba: app.colors.secondary
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(12)]
+    Text:
+        text: root.title
+        color: app.colors.white
+        halign: "center"
+        font_name: app.fonts.heading
+        font_size: app.fonts.size.h4
+        size_hint_y: None
+        height: dp(32)
+    AnchorLayout:
+        Widget:
+            size_hint_x: None
+            width: self.height
+            canvas.before:
+                Color:
+                    rgba: [1,1,1,1]
+                Ellipse:
+                    pos: self.pos
+                    size: self.size
+                    source: root.source
+    FlatButton:
+        text: "disconnect"
+        color: app.colors.danger
+        size_hint_y: None
+        height: dp(32)
+
+<ExchangeTile>:
+    size_hint_y: None
+    height: dp(42)
+    padding: [dp(12), dp(4)]
+    spacing: dp(8)
+    canvas.before:
+        Color:
+            rgba: app.colors.secondary
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(6)]
+    AnchorLayout:
+        size_hint_x: None
+        width: self.height
+        Widget:
+            canvas.before:
+                Color:
+                    rgba: [1,1,1,1]
+                Ellipse:
+                    pos: self.pos
+                    size: self.size
+                    source: root.source
+    Text:
+        text: root.title
+        color: app.colors.white
+        font_name: app.fonts.subheading
+        font_size: app.fonts.size.h5
+        size_hint_x: .6
+    FlatButton:
+        text: "connected" if root.connected else "connect"
+        color: app.colors.success if root.connected else app.colors.warning
+        size_hint_x: .4

@@ -1,5 +1,6 @@
 #: import Overview views.overview.Overview
 #: import Currency views.currencies.Currency
+#: import Exchange views.exchanges.Exchange
 
 <Home>:
     orientation: 'vertical'
@@ -16,8 +17,8 @@
                 
         Screen:
             name: "scrn_exchanges"
-            BackBox:
-                bcolor: app.colors.success
+            Exchange:
+                id: exchange
     
     # Bottom Navigation
     AnchorLayout:
