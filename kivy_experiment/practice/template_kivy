@@ -1,0 +1,15 @@
+from kivy.app import App
+from kivy.uix.widget import Widget
+
+
+class BaseInstance(Widget):
+    pass
+
+
+class NameofThisApp(App):
+    def build(self):
+        return BaseInstance()
+
+
+if __name__ == '__main__':
+    NameofThisApp().run()
